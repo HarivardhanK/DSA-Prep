@@ -1,0 +1,117 @@
+60. Permutation Sequence
+link: https://leetcode.com/problems/permutation-sequence/
+Probelm level: Hard
+The set [1, 2, 3, ..., n] contains a total of n! unique permutations.
+
+By listing and labeling all of the permutations in order, we get the following sequence for n = 3:
+
+"123"
+"132"
+"213"
+"231"
+"312"
+"321"
+Given n and k, return the kth permutation sequence.
+
+ 
+
+Example 1:
+Input: n = 3, k = 3
+Output: "213"
+
+Example 2:
+Input: n = 4, k = 9
+Output: "2314"
+
+Example 3:
+Input: n = 3, k = 1
+Output: "123"
+ 
+
+Constraints:
+
+1 <= n <= 9
+1 <= k <= n!
+
+BruteForce Approach:
+using simple Recursion and sorting the Result List and output the k-1 index of the ResultList
+JAVA:
+ Time Complexity : O(n!)-creating the list of permutatins *sorting the List O(n!log(n!))
+ Space Complexity : O(n!)
+class Solution {
+    public ArrayList<String> permutations(String up,String p){
+        if(up.length()==0){
+            ArrayList<String> ans = new ArrayList<>();
+            ans.add(p);
+            return ans;
+        }
+        char ch=up.charAt(0);
+        ArrayList<String> ans=new ArrayList<>();
+        for(int i=0;i<=p.length();i++){
+            String f=p.substring(0,i);
+            String s=p.substring(i,p.length());
+            ans.addAll(permutations(up.substring(1),f+ch+s));
+        }
+        return ans;
+    }
+    public String getPermutation(int n, int k) {
+        String up="",p="";
+        for(int i=0;i<n;i++)
+            up+=i+1;
+        // System.out.println(up);
+        ArrayList<String> ans=permutations(up,p);
+        Collections.sort(ans);
+        // System.out.println(ans);
+        return ans.get(k-1);
+    }
+}
+
+Optimal Approach:
+using Simple Math 
+n=3 and k=4
+create an List from 1 to n arr={1,2,3} and find fact i.e 3! = 6
+our indexing start from the 0th index so, k=k-1 i.e 4-1 = 3
+
+starts with 1
+0 - 123
+1 - 132
+starts with 2
+2 - 213
+3 - 231 
+starts with 3
+4 - 312
+5 - 321
+1st iteration now k=3 so our result should start with the no. 3/2=1 i.e 1st index=2 add it to the result and remove from arr i.e {1, 3}
+              then make k=k%2= 3%2=1 result string is "2"
+2nd iteration now k=1 so our result should start with the no. 1/1=1 i.e 1st index=3 add it to the result and remove from arr i.e { 1 }
+              then make k=k%1= 1%1=0 result string is "23"
+3rd iteration now k=0 so our result should start with the no. 0/1=0 i.e 0th index=1 add it to the result and remove from arr i.e {}
+              then make k=0%0= 0=0 result string is "231"
+ when arr length becomes 0 then break and return the result String i.e "231"
+ 
+ JAVA code:
+ Time Complexity : (O(n))- for traversing n times *(O(n))- for traversing array
+ Space Complexity : O(n) for creating an arr array
+ class Solution {
+    public String getPermutation(int n, int k) {
+        List<Integer> arr=new ArrayList<>();
+        StringBuilder ans=new StringBuilder();
+        int fact=1;
+        for(int i=1;i<n;i++){
+            fact*=i;
+            arr.add(i);
+        }
+        arr.add(n);
+        k=k-1;
+        while(true){
+            ans.append(arr.get(k/fact));
+            arr.remove(k/fact);
+            if(arr.size()==0)
+                break;
+            k=k%fact;
+            fact=fact/arr.size();
+        }
+        return ans.toString();
+    }
+}
+              
