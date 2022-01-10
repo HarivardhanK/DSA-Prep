@@ -1,9 +1,10 @@
 **This solution takes O(K) and for every increment we have to loop through k elements**
+
 ​
-**use lazy increment instead it is nothing but storing values in an array and then when the element gets popped it gives its value to the previous element**
-#### Implemented
-​
-**bruteforce**
+use **lazy increment approach** instead it is nothing but storing values in an array and then when the element gets popped it gives its value to the previous element **Implemented in leetcode**
+
+
+#### bruteforce solution
 ​
 ```
 class CustomStack {
