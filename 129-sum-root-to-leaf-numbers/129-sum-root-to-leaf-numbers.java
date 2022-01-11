@@ -14,25 +14,20 @@
  * }
  */
 class Solution {
-    ArrayList<String> ans;
-    private void sumStrings(TreeNode root, String p){
-        if(root.right==null && root.left==null){
-            ans.add(p+root.val);
-            return;
+    private int sumNumber(TreeNode root, int sum){
+        if(root.right == null && root.left==null){
+            sum= sum*10 + root.val;
+            return sum;
         }
+        sum=(sum*10)+root.val;
+        int left=0, right=0;
         if(root.right!=null)
-            sumStrings(root.right,p+root.val);
+            left = sumNumber(root.right, sum);
         if(root.left!=null)
-            sumStrings(root.left, p+root.val);
+            right = sumNumber(root.left, sum);
+        return left+ right;
     }
     public int sumNumbers(TreeNode root) {
-        ans= new ArrayList<>();
-        String p = "";
-        sumStrings(root, p);
-        int sum=0;
-        for(String s: ans){
-            sum+=Integer.parseInt(s);
-        }
-        return sum;
+       return sumNumber(root,0); 
     }
 }
