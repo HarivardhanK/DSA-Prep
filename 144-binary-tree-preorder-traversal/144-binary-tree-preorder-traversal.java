@@ -17,10 +17,8 @@ class Solution {
     public List<Integer> preorderTraversal(TreeNode root) {
         if(root==null) return new ArrayList<Integer>();
         ArrayList<Integer> ans = new ArrayList<>();
-        //stack ds
-        Stack<TreeNode> s = new Stack<>();
-        //pushing the root element first
-        s.push(root);
+        Stack<TreeNode> s = new Stack<>(); //stack ds
+        s.push(root); //pushing the root element first
         while(!s.isEmpty()){
             int size = s.size();
             TreeNode temp;
