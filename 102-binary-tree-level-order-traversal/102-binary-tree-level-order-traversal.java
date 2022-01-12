@@ -18,7 +18,7 @@ class Solution {
         List<List<Integer>> ans = new ArrayList<>();
         if(root==null)
             return ans;
-        Queue<TreeNode> q = new LinkedList<>();
+        Queue<TreeNode> q = new ArrayDeque<>();
         q.offer(root);
         while(!q.isEmpty()){
             List<Integer> smallans = new ArrayList<>();
