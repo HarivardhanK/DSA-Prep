@@ -1,3 +1,6 @@
+# Iterative Solution:
+To convert a Recursive procedure to iterative, we need an explicit stack.
+Thats the reason we have used the stack to implement in iterative
 # Recursive Solution:
 ​
 ```
@@ -19,26 +22,5 @@ return ans;
 }
 ```
 ​
-class Solution {
-public List<Integer> preorderTraversal(TreeNode root) {
-if(root==null)
-return new ArrayList<Integer>();
-ArrayList<Integer> ans = new ArrayList<>();
-Stack<TreeNode> s = new Stack<>();
-s.push(root);
-while(!s.isEmpty()){
-int size = s.size();
-TreeNode temp;
-while(size-->0){
-temp = s.pop();
-if(temp.right!=null)
-s.push(temp.right);
-if(temp.left!=null)
-s.push(temp.left);
-ans.add(temp.val);
-}
-}
-return ans;
-}
-}
+​
 ​
