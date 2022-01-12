@@ -5,9 +5,10 @@ class Solution {
             if(!stk.isEmpty() && stk.peek()==s.charAt(i)) stk.pop();
             else stk.push(s.charAt(i));
         }
-        s="";
+        // s="";
+        StringBuilder ans = new StringBuilder(); 
         while(!stk.isEmpty())
-            s=stk.pop()+s;
-        return s;
+            ans.append(stk.pop());
+        return ans.reverse().toString();
     }
 }
