@@ -20,20 +20,17 @@ class Solution {
         Stack<TreeNode> s = new Stack<>(); //stack ds
         s.push(root); //pushing the root element first
         while(!s.isEmpty()){
-            int size = s.size();
             TreeNode temp;
-            while(size-->0){
-                //pop the top most element(which is left)
-                temp = s.pop();
-                // pushing the right node first
-                if(temp.right!=null)
-                    s.push(temp.right);
-                //then pushing the left node into the stack
-                if(temp.left!=null)
-                    s.push(temp.left);
-                //add the value of that element into the list 
-                ans.add(temp.val);
-            }
+            //pop the top most element
+            temp = s.pop();
+            // pushing the right node first
+            if(temp.right!=null)
+                s.push(temp.right);
+            //then pushing the left node into the stack
+            if(temp.left!=null)
+                s.push(temp.left);
+            //add the value of that element into the list 
+            ans.add(temp.val);
         }
         return ans;
     }
