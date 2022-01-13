@@ -18,15 +18,11 @@ class Solution {
     private int findmaxpath(TreeNode root){
         if(root==null) return 0;
         
-        int lmax=findmaxpath(root.left);
-        int rmax=findmaxpath(root.right);
-        int pathsum=root.val;
-        if(lmax>0) pathsum+=lmax;
-        if(rmax>0) pathsum+=rmax;
-        // System.out.println(root.val + " "+pathsum+" "+maxpath);
-        int path = root.val+Math.max((lmax>0)?lmax:0 , (rmax>0)?rmax:0);
-        maxpath=Math.max(maxpath,pathsum);
-        return path;
+        int lmax=Math.max(0,findmaxpath(root.left));
+        int rmax=Math.max(0,findmaxpath(root.right));
+        
+        maxpath=Math.max(maxpath,root.val+lmax+rmax);
+        return root.val+Math.max(lmax , rmax);
     }
     public int maxPathSum(TreeNode root) {
         maxpath=root.val;
