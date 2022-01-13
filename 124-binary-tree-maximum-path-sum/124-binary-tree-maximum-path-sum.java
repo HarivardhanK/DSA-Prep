@@ -23,7 +23,7 @@ class Solution {
         int pathsum=root.val;
         if(lmax>0) pathsum+=lmax;
         if(rmax>0) pathsum+=rmax;
-        System.out.println(root.val + " "+pathsum+" "+maxpath);
+        // System.out.println(root.val + " "+pathsum+" "+maxpath);
         int path = root.val+Math.max((lmax>0)?lmax:0 , (rmax>0)?rmax:0);
         maxpath=Math.max(maxpath,pathsum);
         return path;
