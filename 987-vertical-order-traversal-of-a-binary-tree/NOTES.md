@@ -30,3 +30,17 @@ row 2 : col 2: {7}
 ​
 **Output**
 {{4},{2},{1,5,6},{3},{7}}
+​
+​
+​
+​
+​
+# Using Preorder Traversal:
+```
+class Solution {
+​
+public List<List<Integer>> verticalTraversal(TreeNode root) {
+TreeMap<Integer, TreeMap<Integer, PriorityQueue<Integer>>> map = new TreeMap<>();
+​
+solve(root, map, 0, 0);
+​
