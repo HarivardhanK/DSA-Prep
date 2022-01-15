@@ -20,16 +20,20 @@ class Solution {
         Queue<TreeNode> q= new LinkedList<>();
         q.offer(root);
         while(!q.isEmpty()){
-            int size=q.size();
-            ans.add(new ArrayList<>());
+            int size=q.size(); 
+            
+            //adds infront of the list
+            ans.add(0,new ArrayList<>());
+            
             while(size-->0){           
                 TreeNode node = q.poll();
-                ans.get(ans.size()-1).add(node.val);
+                ans.get(0).add(node.val);
                 if(node.left!=null) q.offer(node.left);
                 if(node.right!=null) q.offer(node.right);
             }
         }
-         Collections.reverse(ans);
+         // Collections.reverse(ans);
+        
         return ans;
     }
 }
