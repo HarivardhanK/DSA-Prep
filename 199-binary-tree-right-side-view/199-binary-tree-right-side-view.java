@@ -13,16 +13,30 @@
  *     }
  * }
  */
-class Solution {
-    public void rightsiderec(TreeNode node, List<Integer> ans, int level){
-        if(node==null) return ;
-        if(level==ans.size()) ans.add(node.val);
-        rightsiderec(node.right,ans,level+1);
-        rightsiderec(node.left,ans,level+1);
+class Pair{
+    TreeNode node;
+    int level;
+    Pair(TreeNode node,int level){
+        this.node = node;
+        this.level=level;
     }
+}
+class Solution {
     public List<Integer> rightSideView(TreeNode root) {
         List<Integer> ans = new ArrayList<>();
-        rightsiderec(root, ans, 0);
+        if(root==null) return ans;
+        Map<Integer, Integer> map = new TreeMap<>();
+        Queue<Pair> q = new LinkedList<>();
+        q.offer(new Pair(root,0));
+        while(!q.isEmpty()){
+            Pair p = q.poll();
+            TreeNode node = p.node;
+            int level= p.level;
+            map.put(level,node.val);
+            if(node.left!=null) q.offer(new Pair(node.left, level+1));
+            if(node.right!=null) q.offer(new Pair(node.right,level+1));
+        }
+        for(Map.Entry<Integer,Integer> m:map.entrySet()) ans.add(m.getValue());
         return ans;
     }
 }
