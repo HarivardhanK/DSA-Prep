@@ -1,5 +1,6 @@
 **Recursive solution:**
 simple and crisp solution
+runtime :1ms
 ​
 ```
 class Solution {
@@ -17,3 +18,9 @@ return ans;
 }
 ```
 ​
+**# Iterative solution:**
+​
+runtime :3ms
+```
+class Pair{
+TreeNode node;
