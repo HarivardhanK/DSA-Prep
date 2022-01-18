@@ -15,8 +15,14 @@
  */
 class Solution {
     boolean isSym(TreeNode r , TreeNode l){
-       if(l==null && r==null) return true;
-        if((l==null && r!=null)|| (l!=null && r==null) ) return false;
+        //these two stmt can written as below one line stmt 
+        //both are same but below(2) looks clean than (1)
+        // 1. 
+        // if(l==null && r==null) return true;
+        // if((l==null && r!=null)|| (l!=null && r==null) ) return false;
+        //2.
+        if(r==null || l==null) return l==r;
+
         if(l.val!=r.val) return false;
         return isSym(r.right,l.left) && isSym(r.left,l.right);
     }
