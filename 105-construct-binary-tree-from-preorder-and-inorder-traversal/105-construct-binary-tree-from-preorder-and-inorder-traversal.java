@@ -14,15 +14,15 @@
  * }
  */
 class Solution {
-    public TreeNode builtTree (int []pre, int[] in, Map<Integer,Integer> mapIn, int ps, int is , int pe ,int ie){
+    public TreeNode builtTree (int []pre, int ps, int pe, int[] in, int is, int ie, Map<Integer,Integer> mapIn){
         if(ps>pe || is>ie) return null;
         
         TreeNode root = new TreeNode(pre[ps]);
         int inRoot = mapIn.get(root.val);
         int inLeft = inRoot - is;
         
-        root.left = builtTree(pre, in, mapIn, ps+1, is, ps+inLeft, inRoot-1);
-        root.right = builtTree(pre, in, mapIn, ps+inLeft+1, inRoot+1, pe, ie);
+        root.left = builtTree(pre, ps+1, ps+inLeft, in, is, inRoot-1,mapIn);
+        root.right = builtTree(pre, ps+inLeft+1, pe, in, inRoot+1, ie, mapIn);
         
         
         return root;
@@ -32,7 +32,7 @@ class Solution {
         for(int i=0;i<inorder.length;i++)
             mapInorder.put(inorder[i],i);
         
-        return builtTree(preorder, inorder, mapInorder,0, 0, preorder.length-1, inorder.length-1);
+        return builtTree(preorder, 0, preorder.length-1, inorder, 0, inorder.length-1, mapInorder);
     }
 }
 
