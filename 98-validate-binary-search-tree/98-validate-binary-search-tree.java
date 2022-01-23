@@ -14,19 +14,14 @@
  * }
  */
 class Solution {
-    List<Integer> list;
-    public void fillList(TreeNode root){
-        if(root == null) return;
-        fillList(root.left);
-        list.add(root.val);
-        fillList(root.right);
+    public boolean isvalid(TreeNode root, long lower, long upper){
+        if(root == null) return true;
+        if(root.val<=lower || root.val>=upper) return false;
+        return isvalid(root.left, lower, root.val) && isvalid(root.right, root.val, upper);
+        
     }
     public boolean isValidBST(TreeNode root) {
-        list = new ArrayList<>();
-        fillList(root);
-        for(int i=0;i<list.size()-1;i++){
-            if(list.get(i)>=list.get(i+1)) return false;
-        }
-        return true;
+        if(root == null) return true;
+        return isvalid(root, Long.MIN_VALUE,Long.MAX_VALUE);
     }
 }
