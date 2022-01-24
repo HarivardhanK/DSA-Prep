@@ -14,9 +14,11 @@
  * }
  */
 class Solution {
-    public TreeNode findRight(TreeNode node){
-        if(node.right==null) return node;
-        return findRight(node.right);
+    public TreeNode findRight(TreeNode root){
+        // if(node.right==null) return node;
+        // return findRight(node.right);
+        while(root.right!=null) root =root.right;
+        return root;
     }
     public TreeNode helper(TreeNode node){
         if(node.left==null) return node.right;
