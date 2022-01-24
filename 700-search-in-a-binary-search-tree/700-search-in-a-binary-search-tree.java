@@ -15,10 +15,16 @@
  */
 class Solution {
     public TreeNode searchBST(TreeNode root, int val) {
-        if(root==null) return null;
-        if(root.val == val) return root;
-        if(root.val>=val)
-            return searchBST(root.left, val);
-        return searchBST(root.right, val);
+        //iterative Solution TC: O(logN) SC: O(1)
+        while(root!=null && root.val!=val)
+            root=root.val>val?root.left:root.right;
+        
+        return root;
+        //Recursive Solution TC: O(logN) SC: O(logN)
+        // if(root==null) return null;
+        // if(root.val == val) return root;
+        // if(root.val>=val)
+        //     return searchBST(root.left, val);
+        // return searchBST(root.right, val);
     }
 }
