@@ -1,23 +1,14 @@
 class Solution {
     public boolean detectCapitalUse(String word) {
-        if(word.length() == 1) return true;
-        if(word.charAt(0)<='z' && word.charAt(0)>='a'){ 
-            for(int i=1;i<word.length();i++){
-                if(word.charAt(i)>='A' && word.charAt(i)<='Z') return false;
-             }
-        }
-        else{
-            if(word.charAt(1)>='A' && word.charAt(1)<='Z') {
-                for(int i=0;i<word.length();i++){
-                    if(word.charAt(i)>='a' && word.charAt(i)<='z') return false;
-                }
-            }
-            else{
-                for(int i=1;i<word.length();i++){
-                    if(word.charAt(i)>='A' && word.charAt(i)<='Z') return false;
-                }
+        //looks clean 
+        //we are only finding he no. of capitals in the string and just checking around it
+        int caps = 0;
+        for (int i = 0; i < word.length(); i++) {
+            if (Character.isUpperCase(word.charAt(i))){
+                caps++;
             }
         }
-        return true;
+        if (caps == word.length() || caps == 0) return true;
+        return caps == 1 && Character.isUpperCase(word.charAt(0));
     }
 }
