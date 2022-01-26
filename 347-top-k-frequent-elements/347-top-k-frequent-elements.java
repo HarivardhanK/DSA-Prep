@@ -20,10 +20,10 @@ class Solution {
         Map<Integer, Integer> map =new HashMap<>();
 
         for(int i : nums) map.put(i, map.getOrDefault(i,0)+1);
+        
         for(Map.Entry<Integer, Integer> entry: map.entrySet()){
             pq.offer(new Pair(entry.getKey(), entry.getValue()));
             if(pq.size()>k) pq.poll();
-            // System.out.println(pq.peek().num);
         }
         int ans[] = new int[k];
         int i=0;
