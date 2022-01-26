@@ -13,6 +13,7 @@ class Solution {
                 public int compare(Pair a, Pair b){
                     if(a.freq - b.freq == 0 )
                         return b.num - a.num;
+                    //reversed the order because we used the minHeap
                     return a.freq - b.freq;
                 }
             }
