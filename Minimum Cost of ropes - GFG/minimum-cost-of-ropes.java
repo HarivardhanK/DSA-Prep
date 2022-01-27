@@ -68,15 +68,16 @@ class Solution
         // your code here
         long ans = 0;
         PriorityQueue<Long> pq = new PriorityQueue<>();
-        long sum = 0;
+        // long sum = 0;
         for(int i=0;i<arr.length;i++){
             pq.offer(arr[i]);
-            sum+=arr[i];
+            // sum+=arr[i];
         }
-        while(pq.size()>0){
-            long cost = pq.poll() + ((pq.size()>0)?pq.poll():0);
+        while(pq.size()>1){
+            // long cost = pq.poll() + ((pq.size()>0)?pq.poll():0);
+            long cost = pq.poll() + pq.poll();
             ans+=cost;
-            if(cost==sum) break;
+            // if(cost==sum) break;
             pq.offer(cost);
         }
         return ans;
