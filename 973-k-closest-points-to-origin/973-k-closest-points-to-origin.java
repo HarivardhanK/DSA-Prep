@@ -1,9 +1,9 @@
 class Pair{
     int dist;
-    int []point;
-    Pair(int dist, int []point){
+    int ind;
+    Pair(int dist, int ind){
         this.dist=dist;
-        this.point=point;
+        this.ind=ind;
     }
 }
 class Solution {
@@ -22,13 +22,13 @@ class Solution {
         );
         for(int i=0;i<points.length;i++){
             int dist = calculateDis(points[i][0],points[i][1]);
-            pq.offer(new Pair(dist, points[i]));
+            pq.offer(new Pair(dist, i));
             if(pq.size()>k) pq.poll();
         }
         int [][]ans = new int[k][2];
         int i=0;
         while(pq.size()>0){
-            ans[i++] = pq.poll().point;
+            ans[i++] = points[pq.poll().ind];
         }
         return ans;
     }
