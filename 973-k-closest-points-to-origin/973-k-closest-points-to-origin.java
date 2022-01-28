@@ -16,7 +16,7 @@ class Solution {
                 public int compare(Pair a, Pair b){
                     if(a.dist==b.dist)
                         return a.dist;
-                    return b.dist - a.dist;
+                    return b.dist - a.dist;//Max Heap
                 }
             }
         );
