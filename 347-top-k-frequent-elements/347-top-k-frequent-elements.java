@@ -11,10 +11,10 @@ class Solution {
         PriorityQueue<Pair> pq = new PriorityQueue<>(
             new Comparator<Pair>(){
                 public int compare(Pair a, Pair b){
-                    if(a.freq - b.freq == 0 )
+                    if(a.freq == b.freq )
                         return b.num - a.num;
                     //reversed the order because we used the minHeap
-                    return a.freq - b.freq;
+                    return  -(b.freq-a.freq);
                 }
             }
         );
