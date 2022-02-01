@@ -14,19 +14,21 @@
  * }
  */
 class Solution {
-    public int findBottomLeftValue(TreeNode root) {
-        Queue<TreeNode> q = new LinkedList<>();
-        q.offer(root);
-        int leftmostnode=root.val;
-        while(q.size()>0){
-            int size=q.size();
-            leftmostnode=q.peek().val;
-            while(size-->0){
-                TreeNode node = q.poll();
-                if(node.left!=null) q.offer(node.left);
-                if(node.right!=null) q.offer(node.right);
-            }
+    int leftmostnode;
+    int maxlevel;
+    void dfspreorder(TreeNode root, int level){
+        if(root==null) return;
+        if(level>maxlevel){
+            maxlevel=level;
+            leftmostnode=root.val;
         }
+        dfspreorder(root.left, level+1);
+        dfspreorder(root.right, level+1);
+    }
+    public int findBottomLeftValue(TreeNode root) {
+        leftmostnode=root.val;
+        maxlevel=-1;
+        dfspreorder(root,0);
         return leftmostnode;
     }
 }
