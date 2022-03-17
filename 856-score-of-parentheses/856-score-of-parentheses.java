@@ -25,7 +25,6 @@ class Solution {
         while(!stk.isEmpty() && stk.peek()!=-1){
             A+=stk.pop();
         }
-        A*=2;
-        return A/2;
+        return A;
     }
 }
