@@ -9,7 +9,7 @@ class Solution {
         //     dp[i]=Math.max(pick,unpick);
         // }
         // return dp[nums.length-1];
-        int curr=nums[0],prev1=nums[0],prev2=0;
+        int curr=0,prev1=nums[0],prev2=0;
         for(int i=1;i<nums.length;i++){
             int pick=nums[i];
             if(i>1) pick+=prev2;
@@ -18,6 +18,6 @@ class Solution {
             prev2=prev1;
             prev1=curr;
         }
-        return curr;
+        return prev1;
     }
 }
