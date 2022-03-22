@@ -25,7 +25,7 @@ class Solution {
     public Node connect(Node root) {
         if(root==null) return root;
         Queue<Node> q = new LinkedList<>();
-        int num=0,pn=0;
+        int pn=0;
         q.offer(root);
         while(!q.isEmpty()){
             Node temp = q.poll();
@@ -37,7 +37,6 @@ class Solution {
             }
             if(pn==0 || (q.size())==pn){
                 temp.next=null;
-                num=0;
                 pn=q.size()*2;
             }
             else 
