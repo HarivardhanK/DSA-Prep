@@ -1,33 +1,23 @@
 class Solution {
     public int largestRectangleArea(int[] heights) {
-        int[] ls,rs;//ls=leftSmallerIndex rs=rightSmallerIndex
-        ls = new int[heights.length];
-        rs = new int[heights.length];
-        Stack<Integer> s =new Stack<>();
-        
-        //for each element finding lefthandsideSmallest index
-        for(int i=0;i<heights.length;i++){
-            while(!s.isEmpty() && heights[s.peek()]>=heights[i])
-                s.pop(); //popping ele which greater to find smaller
-            ls[i]=(s.isEmpty())?0:s.peek()+1;
-            s.push(i);
-        }
-        
-        // popping all ele in stack to reuse
-        while(!s.isEmpty()) s.pop();
-        
-        //for each element finding lefthandsideSmallest index
+        int nsl[] = new int[heights.length];
+        int psl[] = new int[heights.length];
+        Stack<Integer> stk = new Stack<>();
         for(int i=heights.length-1;i>=0;i--){
-            while(!s.isEmpty() && heights[s.peek()]>=heights[i])
-                s.pop(); //popping ele which greater to find smaller
-            rs[i]=(s.isEmpty())?heights.length-1:s.peek()-1;
-            s.push(i);
+            while(!stk.empty() && heights[stk.peek()]>=heights[i]) stk.pop();
+            nsl[i]=stk.empty()?heights.length-1:stk.peek()-1;
+            stk.push(i);
         }
-        
-        int res=0;
+        while(!stk.empty()) stk.pop();
         for(int i=0;i<heights.length;i++){
-            res=Math.max(res,heights[i]*(rs[i]-ls[i]+1));
+            while(!stk.empty() && heights[stk.peek()]>=heights[i]) stk.pop();
+            psl[i]=stk.empty()?0:stk.peek()+1;
+            stk.push(i);
         }
-        return res;
+        int max=0;
+        for(int i=0;i<heights.length;i++){
+            max=Math.max(max,(nsl[i]-psl[i]+1)*heights[i]);
+        }
+        return max;
     }
 }
