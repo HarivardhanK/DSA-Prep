@@ -17,7 +17,7 @@ class Solution {
         
         //moving fast for the n times
         while(n-->0) fast=fast.next;
-        
+        //the n length gap is maintained between them
         //so that it creates a distance of fast and slow of n length
         //now start moving slow and fast equally
         while(fast.next!=null){
