@@ -8,21 +8,20 @@ class Pair{
 }
 class Solution {
     public int[] kWeakestRows(int[][] mat, int k) {
-        int count=0;
-        PriorityQueue<Pair> pq = new PriorityQueue<>(
-            new Comparator<Pair>(){
-                public int compare(Pair p, Pair q){
-                    if(p.soldiers==q.soldiers) return -1*(p.index-q.index);
-                    return -1*(p.soldiers-q.soldiers);
-                }
-            }
-        );
+        //Max Heap(weakest -> strongest)
+        PriorityQueue<Pair> pq = new PriorityQueue<>((p,q)->
+            (p.soldiers==q.soldiers)      //if soldiers in pth and qth row are equal
+                ?(q.index-p.index)        //then we go for min of two index
+                :(q.soldiers-p.soldiers));//else we take min of two soldiers
         for(int i=0;i<mat.length;i++){
-            count=0;
-            for(int j=0;j<mat[i].length && mat[i][j]==1;j++){
-                count+=mat[i][j];
+            int low=0,high=mat[i].length;
+            //Binary search to find the last soldiers in a row
+            while(low<high){
+                int mid=low+(high-low)/2;
+                if(mat[i][mid]!=0) low=mid+1;
+                else high=mid;
             }
-            pq.offer(new Pair(count,i));
+            pq.offer(new Pair(low,i));
             if(pq.size()>k) pq.poll();
         }
         int ans[] = new int[k];
