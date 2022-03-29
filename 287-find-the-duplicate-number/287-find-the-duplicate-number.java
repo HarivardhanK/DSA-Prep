@@ -11,9 +11,6 @@ class Solution {
                 i++;
             }
         }
-        for(i=0;i<nums.length;i++){
-            if(nums[i]!=i+1) return nums[i];
-        }
-        return -1 ;
+        return nums[nums.length-1] ;
     }
 }
