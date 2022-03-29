@@ -9,5 +9,6 @@ class Solution {
             prev2=curr;
         }
         return curr;
+        
     }
 }
