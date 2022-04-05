@@ -1,34 +1,27 @@
 class Solution {
-    // int minpathsum(int [][]mat , int r, int c, int[][] dp){
-    //     if(c<0|| c>=mat[0].length) return Integer.MAX_VALUE;
-    //     if(r==mat.length-1) return mat[r][c];
-    //     if(dp[r][c]==-1){
-    //         int left,down,right;
-    //         left=minpathsum(mat, r+1, c-1,dp);//left
-    //         down=minpathsum(mat,r+1,c,dp);//down
-    //         right=minpathsum(mat,r+1,c+1,dp);//right
-    //         dp[r][c]=mat[r][c]+Math.min(left,Math.min(down, right));
-    //     }
-    //     return dp[r][c];
-    // }
+    //TBD space optimisation
     public int minFallingPathSum(int[][] matrix) {
-        int dp[][] = new int[matrix.length][matrix[0].length];
-        for(int c=0;c<matrix[0].length;c++) dp[0][c]=matrix[0][c];
+        // int dp[][] = new int[matrix.length][matrix[0].length];
+        int prev[] = new int[matrix[0].length];
+        prev=matrix[0];
         
         for(int r=1;r<matrix.length;r++){
+            int curr[] = new int[matrix[0].length];
             for(int c=0;c<matrix[0].length;c++){
                 int left = Integer.MAX_VALUE,down = left, right = left;
                 if(c>0)
-                    left=dp[r-1][c-1];
-                down=dp[r-1][c];
+                    left=prev[c-1];
+                down=prev[c];
                 if(c<matrix[0].length-1)
-                    right=dp[r-1][c+1];
-                dp[r][c]=matrix[r][c]+Math.min(left,Math.min(down,right));
+                    right=prev[c+1];
+                curr[c] = matrix[r][c] + Math.min(left,Math.min(down,right));
             }
+            prev=curr;
         }
         int min=Integer.MAX_VALUE;
         for(int i=0;i<matrix[0].length;i++)
-            min=Math.min(min,dp[matrix.length-1][i]);
+            min=Math.min(min,prev[i]);
         return min;
+        
     }
 }
