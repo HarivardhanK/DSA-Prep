@@ -5,10 +5,8 @@ class Solution {
         }
         if(dp[r][c1][c2]!=0) return dp[r][c1][c2];
         int cherries = 0;
-        if(c1>=0 && c2>=0 && c1<grid[0].length && c2<grid[0].length && c1==c2)   cherries+=grid[r][c1];
-        else  if(c1>=0 && c2>=0 && c1<grid[0].length && c2<grid[0].length) cherries+=grid[r][c1]+grid[r][c2];
-        else if(c1>=0 &&c1<grid[0].length) cherries+=grid[r][c1];
-        else if(c2>=0 && c2<grid[0].length) cherries+=grid[r][c2];
+        if(c1==c2) cherries+=grid[r][c1];
+        else cherries+=grid[r][c1] + grid[r][c2];
         
         if(r==grid.length-1){
             return cherries;
