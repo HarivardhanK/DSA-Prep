@@ -11,19 +11,14 @@ class Solution {
         if(r==grid.length-1){
             return cherries;
         }
-        int f1 = f(grid,r+1,c1-1,c2-1,dp);
-        int f2 = f(grid,r+1,c1-1,c2,dp);
-        int f3 = f(grid,r+1,c1-1,c2+1,dp);
-        int f4 = f(grid,r+1,c1,c2-1,dp);
-        int f5 = f(grid,r+1,c1,c2,dp);
-        int f6 = f(grid,r+1,c1,c2+1,dp);
-        int f7 = f(grid,r+1,c1+1,c2-1,dp);
-        int f8 = f(grid,r+1,c1+1,c2,dp);
-        int f9 = f(grid,r+1,c1+1,c2+1,dp);
-        f9 = Math.max(f9,Math.max(Math.max(Math.max(f1,f2),Math.max(f3,f4)),Math.max(Math.max(f5,f6),Math.max(f7,f8))));
-        cherries += f9;
-        dp[r][c1][c2]=cherries;
-        return cherries;
+        int max=0;
+        for(int col1=c1-1;col1<=c1+1;col1++){
+            for(int col2=c2-1;col2<=c2+1;col2++){
+                max=Math.max(max,f(grid,r+1,col1,col2,dp));
+            }
+        }
+        dp[r][c1][c2]=cherries+max;
+        return cherries+max;
     }
     public int cherryPickup(int[][] grid) {
         int n=grid.length,m=grid[0].length;
