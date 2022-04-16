@@ -5,19 +5,21 @@ class Solution {
         int sum=tsum-d;
         if(sum<0 || sum%2!=0) return 0;
         sum/=2;
-        int dp[][] = new int[n][sum+1];
-        if(nums[0]==0) dp[0][0] =2;
-        else dp[0][0]=1;
-        if(nums[0]!=0 && nums[0]<=sum) dp[0][nums[0]]=1;
+        int prev[] = new int[sum+1];
+        if(nums[0]==0) prev[0] =2;
+        else prev[0]=1;
+        if(nums[0]!=0 && nums[0]<=sum) prev[nums[0]]=1;
         for(int i=1;i<n;i++){
+            int curr[] = new int[sum+1];
             for(int tar=0;tar<=sum;tar++){
-                int nonpick=dp[i-1][tar];
+                int nonpick=prev[tar];
                 int pick = 0;
-                if(nums[i]<=tar) pick=dp[i-1][tar-nums[i]];
-                dp[i][tar]=pick+nonpick;
+                if(nums[i]<=tar) pick=prev[tar-nums[i]];
+                curr[tar]=pick+nonpick;
             }
+            prev=curr;
         }
-        return dp[n-1][sum];
+        return prev[sum];
     }
     public int findTargetSumWays(int[] nums, int target) {
         //converting the question into the s1-s2=D problem 
