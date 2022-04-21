@@ -2,20 +2,24 @@ class Solution {
     public int maxProfit(int[] prices) {
         //sell-0, buy-1 , cooldown - 2 
         int n=prices.length;
-        int [][]dp = new int[n+1][2];
+        int []ahead = new int[2];
+        int [] ahead1 = new int[2];
         
         for(int ind=n-1;ind>=0;ind--){
+            int []curr = new int[2];
             for(int j=0;j<=1;j++){
                 if(j==1){
-                    dp[ind][j]=Math.max(-prices[ind]+dp[ind+1][0],dp[ind+1][1]);
+                    curr[j]=Math.max(-prices[ind]+ahead[0],ahead[1]);
                 }
                 else{
                     int smallprofit=0;
-                    if(ind+2<n) smallprofit+=dp[ind+2][1];
-                    dp[ind][j]= Math.max(prices[ind]+smallprofit,dp[ind+1][0]);
+                    if(ind+2<=n) smallprofit+=ahead1[1];
+                    curr[j]= Math.max(prices[ind]+smallprofit,ahead[0]);
                 }
             }
+            ahead1=ahead;
+            ahead=curr;
         }
-        return dp[0][1];   
+        return ahead[1];   
     }
 }
