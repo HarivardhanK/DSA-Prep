@@ -1,4 +1,4 @@
-### Memoization: [TLE]
+### Memoization:
 ```
 class Solution {
 private int mp(int[] prices,int ind,int buy, int[][] dp){
