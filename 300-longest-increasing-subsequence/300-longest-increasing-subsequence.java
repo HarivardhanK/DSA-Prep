@@ -1,20 +1,22 @@
 class Solution {
     private int lis(int nums[],int ind,int prevind,int dp[][]){
-        if(ind<0){
+        if(ind==nums.length){
             return 0;
         }
         if(dp[ind][prevind+1]!=-1) return dp[ind][prevind+1];
-        if(prevind==-1 || nums[prevind]>nums[ind]){
-            return dp[ind][prevind+1]=Math.max(1+lis(nums,ind-1,ind,dp),lis(nums,ind-1,prevind,dp));
+        
+        int len = lis(nums,ind+1,prevind,dp);
+        if(prevind==-1 || nums[prevind]<nums[ind]){
+            return dp[ind][prevind+1]=Math.max(1+lis(nums,ind+1,ind,dp),len);
         }
         else{
-            return dp[ind][prevind+1]=lis(nums,ind-1,prevind,dp);
+            return dp[ind][prevind+1]=len;
         }
     }
     public int lengthOfLIS(int[] nums) {
         int n=nums.length;
-        int dp[][] = new int[n][n+1];
+        int dp[][] = new int[n+1][n+1];
         for(int row[]:dp) Arrays.fill(row,-1);
-        return lis(nums,n-1,-1,dp);
+        return lis(nums,0,-1,dp);
     }
 }
