@@ -1,29 +1,32 @@
-return dp[0][-1+1];
-}
-}
-```
-​
-### Space optimised:
-```
-class Solution {
-public int lengthOfLIS(int[] nums) {
+public static void lengthOfLIS(int[] nums) {
 int n=nums.length;
-int next[] = new int[n+1];
+int lis[] = new int[n];
 //base case filling 0's in nth row -- by default the values are 0
 //nested loops
-for(int ind=n-1;ind>=0;ind--){
-int curr[] = new int[n+1];
-for(int prevind=ind-1;prevind>=-1;prevind--){
-int len = next[prevind+1];
-if(prevind==-1 || nums[prevind] < nums[ind]){
-//dp[ind+1][ind] -> dp[ind+1][ind+1] don't know why
-len=Math.max(1+next[ind+1],len);
+int max=1,maxind=0;
+Arrays.fill(lis,1);
+for(int ind=0;ind<n;ind++){
+for(int prevind=0;prevind<ind;prevind++){
+if(nums[ind]>nums[prevind]){
+if(lis[ind]<1+lis[prevind])
+lis[ind]=1+lis[prevind];
 }
-curr[prevind+1]=len;
 }
-next=curr;
+if(max<lis[ind]){
+max=lis[ind];
+maxind=ind;
 }
-return next[-1+1];
+}
+List<Integer> ans = new ArrayList<>();
+while(maxind>=0){
+ans.add(nums[maxind]);
+int ind=maxind;
+while(ind>=0 && lis[maxind]-1!=lis[ind]) ind--;
+maxind=ind;
+}
+Collections.reverse(ans);
+System.out.println(ans);
+return;
 }
 }
 ```
