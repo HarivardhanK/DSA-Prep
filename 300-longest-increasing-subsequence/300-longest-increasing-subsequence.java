@@ -1,20 +1,26 @@
 class Solution {
+    private int binsearch(List<Integer> arr, int s, int e,int target){
+        while(s<e){
+            int mid=s+(e-s)/2;
+            if(arr.get(mid)==target) return mid;
+            else if(arr.get(mid)<target) s++;
+            else e--;
+        }
+        return s;
+    }
     public int lengthOfLIS(int[] nums) {
         int n=nums.length;
-        int lis[] = new int[n];
-        //base case filling 0's in nth row -- by default the values are 0
-        //nested loops
-        int max=1;
-        Arrays.fill(lis,1);
-        for(int ind=0;ind<n;ind++){
-            for(int prevind=0;prevind<ind;prevind++){
-                if(nums[ind]>nums[prevind]){
-                    if(lis[ind]<1+lis[prevind])
-                        lis[ind]=1+lis[prevind];
-                }
+        ArrayList<Integer> arr = new ArrayList<>();
+        arr.add(nums[0]);
+        for(int i=1;i<n;i++){
+            if(nums[i]>arr.get(arr.size()-1)){
+                arr.add(nums[i]);
             }
-            max=Math.max(max,lis[ind]);
+            else{
+                int ind = binsearch(arr,0,arr.size()-1,nums[i]);
+                arr.set(ind,nums[i]);
+            }
         }
-        return max;
+        return arr.size();
     }
 }
