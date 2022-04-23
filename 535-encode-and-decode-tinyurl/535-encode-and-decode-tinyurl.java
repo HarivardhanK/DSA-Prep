@@ -1,13 +1,15 @@
 public class Codec {
-
+    List<String> urls = new ArrayList<>();
     // Encodes a URL to a shortened URL.
     public String encode(String longUrl) {
-        return longUrl;   
+        urls.add(longUrl);
+        return urls.size()-1+"";
     }
 
     // Decodes a shortened URL to its original URL.
     public String decode(String shortUrl) {
-             return shortUrl;   
+        int index = Integer.parseInt(shortUrl);
+        return (index<urls.size())?urls.get(index):"";
     }
 }
 
