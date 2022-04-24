@@ -1,6 +1,14 @@
+class Pair{
+    Double sum;
+    int numofele;
+    Pair(Double s, int n){
+        sum = s;
+        numofele = n; 
+    }
+}
 class UndergroundSystem {
     Map<Integer,List<String>> mapin = new HashMap<>();
-    Map<String,List<Integer>> mapout = new HashMap<>();
+    Map<String,Pair> mapout = new HashMap<>();
     public UndergroundSystem() {
         
     }
@@ -13,20 +21,23 @@ class UndergroundSystem {
     
     public void checkOut(int id, String stationName, int t) {
         List<String> startstation = mapin.get(id);
-        if(!mapout.containsKey(startstation.get(0)+"-"+stationName)){
-            mapout.put(startstation.get(0)+"-"+stationName, new ArrayList<>());
-            mapout.get(startstation.get(0)+"-"+stationName).add(t-Integer.parseInt(startstation.get(1)));
+        mapin.remove(id);
+        String routeName = startstation.get(0)+"-"+stationName;
+        int starttime = Integer.parseInt(startstation.get(1));
+        if(!mapout.containsKey(routeName)){
+            Pair p = new Pair((double)t-starttime,1);
+            mapout.put(routeName, p);
         }
         else{
-            mapout.get(startstation.get(0)+"-"+stationName).add(t-Integer.parseInt(startstation.get(1)));
+            Pair p = mapout.get(routeName);
+            Pair newp = new Pair(p.sum+((double)t-starttime), p.numofele+1);
+            mapout.put(routeName,newp);
         }
     }
     
     public double getAverageTime(String startStation, String endStation) {
-        List<Integer> arr = mapout.get(startStation+"-"+endStation);
-        double sum = 0;
-        for(double ele:arr) sum+=ele;
-        return sum/arr.size();
+        Pair p = mapout.get(startStation+"-"+endStation);
+        return p.sum/p.numofele;
     }
 }
 
