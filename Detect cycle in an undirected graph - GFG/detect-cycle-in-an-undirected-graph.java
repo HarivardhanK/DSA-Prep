@@ -33,26 +33,39 @@ class GFG {
 
 class Solution {
     // Function to detect cycle in an undirected graph.
+    private boolean checkdfs(int node, int prev, ArrayList<ArrayList<Integer>> adj,  boolean vis[]){
+        vis[node] = true;
+        for(Integer it:adj.get(node)){
+            if(!vis[it]){
+                if(checkdfs(it,node,adj,vis)) return true;
+            }
+            else if(it!=prev) return true;
+        }
+        return false;
+    }
     public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
         boolean vis[] = new boolean[V];
         for(int i=0;i<V;i++){
             if(!vis[i]){
-                Queue<int[]> q = new LinkedList<>();
-                q.offer(new int[]{i,-1});
-                vis[i] = true;
-                while(!q.isEmpty()){
-                    int[] node = q.poll();
-                    for(Integer it:adj.get(node[0])){
-                        if(!vis[it]){
-                            q.offer(new int[]{it,node[0]});
-                            vis[it] = true;
-                        }
-                        else if(it!=node[1]){
-                            return true;
-                        }
-                    }
+                if(checkdfs(i,-1,adj,vis)){
+                    return true;
                 }
                 
+                // Queue<int[]> q = new LinkedList<>();
+                // q.offer(new int[]{i,-1});
+                // vis[i] = true;
+                // while(!q.isEmpty()){
+                //     int[] node = q.poll();
+                //     for(Integer it:adj.get(node[0])){
+                //         if(!vis[it]){
+                //             q.offer(new int[]{it,node[0]});
+                //             vis[it] = true;
+                //         }
+                //         else if(it!=node[1]){
+                //             return true;
+                //         }
+                //     }
+                // }
             }
         }
         return false;
