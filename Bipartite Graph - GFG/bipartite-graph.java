@@ -70,7 +70,7 @@ class Solution
         Arrays.fill(color,-1);
         for(int i=0;i<V;i++){
             if(color[i]==-1){
-                color[i] = 1;
+                // color[i] = 1;
                 if(!dfscheck(i,color,adj))
                     return false;
             }
