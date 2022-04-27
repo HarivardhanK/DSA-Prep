@@ -32,7 +32,32 @@ class DriverClass {
 
 class Solution {
     // Function to detect cycle in a directed graph.
+    private boolean dfs(int node, ArrayList<ArrayList<Integer>> adj, boolean vis[], boolean dfsvis[]){
+        vis[node] = true;
+        dfsvis[node] = true;
+        
+        for(Integer it:adj.get(node)){
+            if(!vis[it]){
+                if(dfs(it,adj,vis,dfsvis))
+                    return true;
+            }
+            else if(dfsvis[it])
+                return true;
+        }
+        dfsvis[node] = false;
+        return false;
+    }
     public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
+        boolean vis[] = new boolean[V];
+        boolean dfsvis[] = new boolean[V];
+        for(int i=0;i<V;i++){
+            if(!vis[i])
+                if(dfs(i,adj,vis,dfsvis)) return true;
+        }
+        return false;
+    }
+    public boolean isCyclicbfs(int V, ArrayList<ArrayList<Integer>> adj) {
+        //kahns algorithm
         int indegree[] = new int[V];
         for(ArrayList<Integer> node: adj){
             for(Integer it:node){
