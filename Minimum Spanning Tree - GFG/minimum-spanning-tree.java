@@ -100,7 +100,7 @@ class Solution
     static int kruskalsalgo(ArrayList<Node> adj, int N)
     {
       DisjointSet dset = new DisjointSet(N);
-      Collections.sort(adj, new SortComparator());
+      Collections.sort(adj, (a,b)->(a.getWeight()==b.getWeight())?0:a.getWeight()-b.getWeight());
         
 
         int costMst = 0;
