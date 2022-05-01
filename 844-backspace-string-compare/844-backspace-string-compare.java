@@ -1,7 +1,7 @@
 class Solution {
-    public boolean backspaceCompare(String s, String t) {
+    public String getString(String str){
         Stack<Character> stk = new Stack<>();
-        for(char c:s.toCharArray()){
+        for(char c:str.toCharArray()){
             if(c!='#'){
                 stk.push(c);
             }
@@ -9,18 +9,9 @@ class Solution {
                 stk.pop();
             }
         }
-        s="";
-        while(!stk.isEmpty()) s=stk.pop()+s;
-        for(char c:t.toCharArray()){
-            if(c!='#'){
-                stk.push(c);
-            }
-            else if(!stk.empty()){
-                stk.pop();
-            }
-        }
-        t="";
-        while(!stk.isEmpty()) t=stk.pop()+t;
-        return s.equals(t);
+        return String.valueOf(stk);
+    }
+    public boolean backspaceCompare(String s, String t) {
+        return getString(s).equals(getString(t));
     }
 }
