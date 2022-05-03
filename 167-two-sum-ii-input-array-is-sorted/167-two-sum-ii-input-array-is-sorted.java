@@ -1,11 +1,13 @@
 class Solution {
     public int[] twoSum(int[] numbers, int target) {
-        int i=0,j=(numbers.length-1);
-        while(i<j){
-            if(numbers[i]+numbers[j]==target) return new int[]{i+1,j+1};
-            else if(numbers[i]+numbers[j]<target) i++;
-            else j--;
+        //using the two pointers one pointing to the begin and other ot last
+        int start = 0, end = numbers.length-1;
+        while(start<end){
+            int sum = numbers[start]+numbers[end];
+            if(sum==target) return new int[]{start+1,end+1};
+            else if(sum<target) start++;
+            else end--;
         }
-        return new int[]{};
+        return numbers;
     }
 }
