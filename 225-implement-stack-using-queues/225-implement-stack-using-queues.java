@@ -1,34 +1,25 @@
 class MyStack {
-    Queue<Integer> q1,q2;
+    Queue<Integer> q;
     public MyStack() {
-        q1=new LinkedList<>();
-        q2=new LinkedList<>();
+        q=new LinkedList<>();
     }
     
     public void push(int x) {
-        q1.offer(x);
-        //we are reversing the queue by doing this
-        while(!q2.isEmpty()) q1.offer(q2.poll());
-        //swap the q1 and q2
-        //to get the top element in the stack 
-        //we need to reverse the queue
-        //this swapping makes it reverse
-        //q2 will be empty
-        Queue<Integer> qtemp = q2;
-        q2 = q1;
-        q1 = qtemp;
+        q.offer(x);
+        for(int i=0;i<q.size()-1;i++)
+            q.offer(q.poll());
     }
     
     public int pop() {
-        return q2.poll();
+        return q.poll();
     }
     
     public int top() {
-        return q2.peek();
+        return q.peek();
     }
     
     public boolean empty() {
-        return !(q2.size()>0);
+        return !(q.size()>0);
     }
 }
 
