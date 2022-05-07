@@ -1,23 +1,16 @@
 class Solution {
+    private int maxrob(int[] nums,int i,int dp[]){
+        if(i<0) return 0;
+        if(dp[i]!=-1) return dp[i];
+        
+        int nonpick = maxrob(nums,i-1,dp);
+        int pick = nums[i]+maxrob(nums,i-2,dp);
+        return dp[i] = Math.max(pick,nonpick);
+    }
     public int rob(int[] nums) {
-        // int dp[] = new int[nums.length];
-        // dp[0]=nums[0];
-        // for(int i=1;i<nums.length;i++){
-        //     int pick = nums[i];
-        //     if(i>1) pick+=dp[i-2];
-        //     int unpick = dp[i-1];
-        //     dp[i]=Math.max(pick,unpick);
-        // }
-        // return dp[nums.length-1];
-        int curr=0,prev1=nums[0],prev2=0;
-        for(int i=1;i<nums.length;i++){
-            int pick=nums[i];
-            if(i>1) pick+=prev2;
-            int unpick = prev1;
-            curr = Math.max(pick,unpick);
-            prev2=prev1;
-            prev1=curr;
-        }
-        return prev1;
+        int n=nums.length;
+        int dp[] = new int[n];
+        Arrays.fill(dp,-1);
+        return maxrob(nums,n-1,dp);
     }
 }
