@@ -1,29 +1,26 @@
-if(dp[i]!=-1) return dp[i];
-int onestep = mch(cost,i-1,dp);
-int twostep = mch(cost,i-2,dp);
-dp[i] = cost[i] + Math.min(onestep,twostep);
-return dp[i];
-}
-public int minCostClimbingStairs(int[] cost) {
-int []dp = new int[cost.length];
-Arrays.fill(dp,-1);
-return Math.min(mch(cost, cost.length-1,dp),mch(cost,cost.length-2,dp));
-}
-}
-```
-​
-​
-### Tabulation:
+### Recursion Solution:
 ​
 ```
 class Solution {
-public int minCostClimbingStairs(int[] cost) {
-int []dp = new int[cost.length];
-for(int i=0;i<cost.length;i++){
-if(i<2) dp[i]=cost[i];
-else dp[i] = cost[i]+Math.min(dp[i-1],dp[i-2]);
+public int mch(int[] cost, int i){
+if(i<0) return 0;
+if(i==0 || i==1) return cost[i];
+int onestep = mch(cost,i-1);
+int twostep = mch(cost,i-2);
+return cost[i]+Math.min(onestep,twostep);
 }
-return Math.min(dp[cost.length-1],dp[cost.length-2]);
+public int minCostClimbingStairs(int[] cost) {
+return Math.min(mch(cost, cost.length-1),mch(cost,cost.length-2));
 }
 }
 ```
+​
+### Memoization:
+​
+```
+class Solution {
+public int mch(int[] cost, int i,int[] dp){
+if(i<0) return 0;
+if(i==0 || i==1){
+dp[i] = cost[i];
+return dp[i];
