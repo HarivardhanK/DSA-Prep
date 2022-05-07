@@ -46,3 +46,12 @@ return dp[grid.length-1][grid[0].length-1];
 }
 }
 ```
+​
+### Space optimisation:
+​
+```
+class Solution {
+public int minPathSum(int[][] grid) {
+//space optimised
+int prev[]= new int[grid[0].length];
+for(int r=0;r<grid.length;r++){
