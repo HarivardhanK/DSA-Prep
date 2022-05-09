@@ -1,4 +1,14 @@
 class Solution {
+    private boolean dfs(boolean[] vis, int s, int e, List<List<Integer>> adjlist){
+        vis[s] = true;
+        for(int node:adjlist.get(s)){
+            if(node == e) return true;
+            if(!vis[node]){
+                if(dfs(vis,node,e,adjlist)) return true;
+            }
+        }
+        return false;
+    }
     public boolean validPath(int n, int[][] edges, int source, int destination) {
         boolean vis[] = new boolean[n];
         List<List<Integer>> adjlist = new ArrayList<>();
@@ -12,16 +22,7 @@ class Solution {
         }
         // end - graph has built
         
-        Queue<Integer> q = new LinkedList<>();
-        q.offer(source);
-        while(!q.isEmpty()){
-            int node = q.poll();
-            vis[node] = true;
-            for(int it:adjlist.get(node)){
-                if(!vis[it])
-                    q.offer(it);
-            }
-        }
+        if(dfs(vis,source,destination,adjlist)) return true;
         if(vis[source] && vis[destination]) return true;
         else if(vis[source] || vis[destination]){
             return false;
