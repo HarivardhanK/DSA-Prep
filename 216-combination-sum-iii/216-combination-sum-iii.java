@@ -1,25 +1,20 @@
 class Solution {
-    Set<List<Integer>> ans = new HashSet<>();
-    private void comb(int digits,int sum,Set<Integer> set){
-        if(sum==0 && digits==0){
-            ans.add(new ArrayList<>(set));
-            return;
+    private void solve(int k, int sum, int start, List<Integer> arr, List<List<Integer>> ans){
+        if(k==0 && sum==0){
+            ans.add(new ArrayList<>(arr));
+            return ;
         }
-        if(sum<0 || digits<0) return;
+        else if(sum<0) return ;
         
-        for(int i=1;i<=9;i++){
-            if(sum-i<0) break;
-            if(!set.contains(i)){
-                set.add(i);
-                comb(digits-1,sum-i,set);
-                set.remove(i);
-            }
-            
+        for(int i=start; i<=9;i++){
+            arr.add(i);
+            solve(k-1, sum-i,i+1,arr,ans);
+            arr.remove(arr.size()-1);
         }
     }
-    public List<List<Integer>> combinationSum3(int digits, int sum) {
-        comb(digits,sum,new HashSet<>());
-        List<List<Integer>> ansarr = new ArrayList<>(ans);
-        return ansarr;
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> ans = new ArrayList<>();
+        solve(k , n, 1, new ArrayList<>(), ans);
+        return ans;
     }
 }
