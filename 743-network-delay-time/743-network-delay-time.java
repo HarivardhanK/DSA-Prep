@@ -15,11 +15,13 @@ class Solution {
         }
         return adj;
     }
+    //Dijstra Algorithm
     public int networkDelayTime(int[][] times, int n, int source) {
         List<List<Pair>> adjlist = createGraph(times,n); 
+        
         int[] distfromSource = new int[n+1];
         Arrays.fill(distfromSource,(int)1e9);
-        PriorityQueue<Pair> pq = new PriorityQueue<>((a,b)->(b.dist-a.dist));
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a,b)->(-b.dist+a.dist));
         
         pq.add(new Pair(source,0));
         distfromSource[source]=0;
