@@ -28,64 +28,27 @@ class GFG{
 
 //User function Template for Java
 
-// class Solution{
-//     static int maxGold(int n, int m, int mat[][])
-//     {
-//         // code here
-//         for(int j=1;j<m;j++){
-//             for(int i=0;i<n;i++){
-//                 int max = 0;
-//                 System.out.println("i"+i+" j"+j);
-//                 if(i>0) max = Math.max(max, mat[i-1][j-1]);
-//                 max = Math.max(max, mat[i][j-1]);
-//                 if(i<n-2) max = Math.max(max, mat[i+1][j-1]);
-//                 mat[i][j] += max;
-//             }
-//         }
-//         int max = 0;
-//         for(int i=0;i<n;i++) max = Math.max(max, mat[i][m-1]);
-//         return max;
-//     }
-// }
-class Solution
-{
+class Solution{
     static boolean isValid(int n, int m, int i, int j)
     {
         if(i>=n || j>=m || i<0 || j<0) return false;
         
         return true;
     }
-    static int maxGold(int n, int m, int M[][])
+    static int maxGold(int n, int m, int mat[][])
     {
-        int gmax = 0; //Global maximum
-        
-        for(int i=0; i<m; i++)
-        {
-            for(int j=0; j<n; j++)
-            {
-                int max_ele = 0;
-                
-                if(isValid(n, m, j-1, i-1))
-                {
-                    max_ele = Math.max(max_ele, M[j-1][i-1]);
-                }
-                if(isValid(n, m, j, i-1))
-                {
-                    max_ele = Math.max(max_ele, M[j][i-1]);
-                }
-                if(isValid(n, m, j+1, i-1))
-                {
-                    max_ele = Math.max(max_ele, M[j+1][i-1]);
-                }
-                
-                M[j][i] += max_ele;
-                
-                if(gmax<M[j][i]) gmax = M[j][i];
-                
+        // code here
+        int gmax = 0;
+        for(int j=0;j<m;j++){
+            for(int i=0;i<n;i++){
+                int max = 0;
+                if(isValid(n,m,i-1,j-1)) max = Math.max(max, mat[i-1][j-1]);
+                if(isValid(n,m,i,j-1)) max = Math.max(max, mat[i][j-1]);
+                if(isValid(n,m,i+1,j-1)) max = Math.max(max, mat[i+1][j-1]);
+                mat[i][j] += max;
+                gmax = Math.max(mat[i][j], gmax);
             }
-            
         }
-        
         return gmax;
     }
 }
