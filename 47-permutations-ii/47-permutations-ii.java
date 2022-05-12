@@ -1,49 +1,34 @@
 class Solution {
-
     public List<List<Integer>> permuteUnique(int[] nums) {
-        List<List<Integer>> results = new ArrayList<>();
-
-        // count the occurrence of each number
-        HashMap<Integer, Integer> counter = new HashMap<>();
-        for (int num : nums) {
-            if (!counter.containsKey(num))
-                counter.put(num, 0);
-            counter.put(num, counter.get(num) + 1);
-        }
-
-        LinkedList<Integer> comb = new LinkedList<>();
-        this.backtrack(comb, nums.length, counter, results);
-        return results;
+        return permute(nums);
     }
-
-    protected void backtrack(
-            LinkedList<Integer> comb,
-            Integer N,
-            HashMap<Integer, Integer> counter,
-            List<List<Integer>> results) {
-
-        if (comb.size() == N) {
-            // make a deep copy of the resulting permutation,
-            // since the permutation would be backtracked later.
-            results.add(new ArrayList<Integer>(comb));
+    private void solve(int nums[], int ind, Set<List<Integer>> ans){
+        if(ind == nums.length){
+            List<Integer> arr = new ArrayList<>();
+            for(int ele:nums) arr.add(ele);
+            ans.add(arr);
             return;
         }
-
-        for (Map.Entry<Integer, Integer> entry : counter.entrySet()) {
-            Integer num = entry.getKey();
-            Integer count = entry.getValue();
-            if (count == 0)
-                continue;
-            // add this number into the current combination
-            comb.addLast(num);
-            counter.put(num, count - 1);
-
-            // continue the exploration
-            backtrack(comb, N, counter, results);
-
-            // revert the choice for the next exploration
-            comb.removeLast();
-            counter.put(num, count);
+        
+        for(int i=ind;i<nums.length;i++){
+            swap(nums,ind,i);
+            solve(nums,ind+1,ans);
+            swap(nums,ind,i);
         }
+    }
+    private void swap(int nums[], int i, int j){
+        int t = nums[i];
+        nums[i] = nums[j];
+        nums[j] = t;
+    }
+    private List<List<Integer>> permute(int[] nums) {
+        //Approach 1: use map to keep track of elements that have been taken as constraints are 1 <= nums.length <= 6
+    
+        //Appraoch 2: use swap, swap the i in for (ind to n-1) 
+        // if ind == nums.length ans into the ans
+        
+        Set<List<Integer>> ans = new HashSet<>();
+        solve(nums, 0, ans);
+        return new ArrayList<>(ans);
     }
 }
