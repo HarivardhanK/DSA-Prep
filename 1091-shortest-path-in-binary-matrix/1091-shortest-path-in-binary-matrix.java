@@ -1,42 +1,78 @@
 class Solution {
-    private int dir[][] = new int[][]{{0,1},{0,-1},{1,0},{-1,0},{1,-1},{-1,1},{-1,-1},{1,1}};
-
+    boolean isvalid(int row, int col, int [][]grid){
+        if(row<0 || col<0 || row>=grid.length || col>=grid[0].length || grid[row][col]==1){
+          return false;
+        }
+        return true;
+    }
     public int shortestPathBinaryMatrix(int[][] grid) {
+        if(grid[0][0]==1 || grid[grid.length-1][grid.length-1]==1) return -1;
+        int sr = 0, sc = 0, tr = grid.length-1, tc = grid.length-1;
+        Queue<Tuple> q = new LinkedList<>();
+        q.offer(new Tuple(sr, sc, 1));
+        int mindis = (int)1e9;
 
-        int m = grid.length;
-        int n = grid[0].length;
-
-        if(grid[0][0]==1 || grid[m-1][n-1]==1) {
-            return -1;
-        }
-
-        boolean[][] visited = new boolean[m][n];
-        visited[0][0] = true;
-        Queue<int[]> queue = new LinkedList<>();
-        queue.add(new int[]{0,0});
-
-        int ans=0;
-        while (!queue.isEmpty()) {
-            int size = queue.size();
-            for(int i=0;i<size;i++) {
-                int[] pop = queue.remove();
-                if(pop[0]==m-1 && pop[1]==n-1) {
-                    return ans+1;
-                }
-                for (int k=0;k<8;k++) {
-                    int nextX = dir[k][0]+pop[0];
-                    int nextY = dir[k][1]+pop[1];
-
-                    if(nextX>=0 && nextX<m && nextY>=0 && nextY<n && !visited[nextX][nextY] && grid[nextX][nextY]==0) {
-                        queue.add(new int[]{nextX,nextY});
-                        visited[nextX][nextY]=true;
-                    }
-
-                }
+        while(!q.isEmpty()){
+          int size = q.size();
+          while(size-->0){
+            Tuple  t = q.poll();
+            int row = t.row;
+            int col = t.col;
+            int dis = t.dis;
+            if(row==tr && col==tc){
+              mindis = Math.min(mindis, dis);
             }
-            ans++;
+            // up dir
+            if(isvalid(row-1,col,grid)){
+              q.offer(new Tuple(row-1, col, dis+1));
+              grid[row-1][col] = 1;
+            }
+            // left - dir
+            if(isvalid(row,col-1 ,grid)){
+              q.offer(new Tuple(row, col-1, dis+1));
+              grid[row][col-1] = 1;
+            }
+            // right - dir
+            if(isvalid(row,col+1,grid)){
+              q.offer(new Tuple(row, col+1, dis+1));
+              grid[row][col+1] = 1;
+            }
+            //down dir
+            if(isvalid(row+1,col,grid)){
+              q.offer(new Tuple(row+1, col, dis+1));
+              grid[row+1][col] = 1;
+            }
+              
+            // up left dir
+            if(isvalid(row-1,col-1,grid)){
+              q.offer(new Tuple(row-1, col-1, dis+1));
+              grid[row-1][col-1] = 1;
+            }
+            // down left - dir
+            if(isvalid(row+1,col-1 ,grid)){
+              q.offer(new Tuple(row+1, col-1, dis+1));
+              grid[row+1][col-1] = 1;
+            }
+            // up - right - dir
+            if(isvalid(row-1,col+1,grid)){
+              q.offer(new Tuple(row-1, col+1, dis+1));
+              grid[row-1][col+1] = 1;
+            }
+            //down right dir
+            if(isvalid(row+1,col+1,grid)){
+              q.offer(new Tuple(row+1, col+1, dis+1));
+              grid[row+1][col+1] = 1;
+            }
+          }
         }
-
-        return -1;
+        return mindis==(int)1e9?-1:mindis;
+    }
+}
+class  Tuple{
+    int row, col, dis;
+    Tuple(int row, int col, int dis){
+          this.row = row;
+          this.col = col;
+          this.dis = dis;
     }
 }
