@@ -9,17 +9,18 @@
  */
 
 class Solution {
-    public TreeNode dfs(TreeNode root,final TreeNode target){
-        if(root==null) return null;
+    public TreeNode dfs(TreeNode root_o, TreeNode root_c, final TreeNode target){
+        if(root_c==null) return null;
         
-        if(root.val==target.val) return root;
-        TreeNode left = dfs(root.left, target);
-        TreeNode right = dfs(root.right, target);
+        if(root_o.val==target.val && root_c.val==target.val) return root_c;
+        TreeNode left = dfs(root_o.left, root_c.left, target);
+        TreeNode right = dfs(root_o.right, root_c.right, target);
         
         return left==null?right:left;
     }
     public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
-        TreeNode root = cloned;
-        return dfs(root, target); 
+        TreeNode root_c = cloned;
+        TreeNode root_o = original;
+        return dfs(root_o, root_c, target); 
     }
 }
