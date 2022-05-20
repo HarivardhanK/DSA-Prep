@@ -1,22 +1,3 @@
-### Memoization
-​
-```
-class Solution {
-private int solve(int[][] grid, int r, int c, int dp[][]){
-if(r<0 || c<0 || grid[r][c]==1) return 0;
-if(r==0 && c==0) return 1;
-if(dp[r][c]!=-1) return dp[r][c];
-int count = solve(grid, r-1, c,dp);
-count += solve(grid, r, c-1,dp);
-return dp[r][c] = count;
-}
-public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-int m = obstacleGrid.length, n = obstacleGrid[0].length;
-int dp[][] = new int[m+1][n+1];
-for(int row[]:dp)
-Arrays.fill(row, -1);
-return solve(obstacleGrid, m-1, n-1, dp);
-​
 }
 }
 ```
@@ -39,3 +20,19 @@ if(obstacleGrid[r][c]==1){
 curr[c]=0;
 continue;
 }
+if(r==0 && c==0){
+curr[c]=1;
+continue;
+}
+curr[c]=0;
+if(r>0)
+curr[c]+=prev[c];
+if(c>0)
+curr[c]+=curr[c-1];
+}
+prev=curr;
+}
+return prev[n-1];
+}
+}
+```
