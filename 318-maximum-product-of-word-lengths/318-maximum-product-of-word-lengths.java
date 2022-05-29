@@ -14,20 +14,7 @@ class Solution {
         int maxlen = 0; 
         for(int i = 0; i < bitarr.length; i++) {
             for(int j = i + 1; j < bitarr.length; j++) {
-                int num1 = bitarr[i], num2 = bitarr[j];
-                
-                while(num1 > 0 && num2 > 0) {
-                    if((num1 & 1) == 1 && (num2 & 1) == 1){
-                        break;
-                    }
-                    num1 = num1 >> 1;
-                    num2 = num2 >> 1;
-                }
-                
-                if(num1 != 0 && num2 != 0) {
-                    continue;
-                }
-                else {
+                if((bitarr[i] & bitarr[j]) == 0){
                     int len = words[i].length() * words[j].length();
                     maxlen = Math.max(maxlen, len);
                 }
