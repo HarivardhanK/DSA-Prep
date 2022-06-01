@@ -31,7 +31,11 @@ class Geeks
 class Solution
 {
     static int majorityElement(int a[], int size) {
-        //ger
+        // one way is to find the frequency/occurence of each element,
+        //find the majority element based on freq of an ele
+        
+        
+        //greedy method
         int majele = a[0], count = 0;
         for(int i = 0; i < a.length; i++){
             if(majele == a[i]) 
