@@ -7,10 +7,11 @@ class Solution {
         //adding first row
         pasTri.add(new ArrayList<>());
         pasTri.get(0).add(1);
-        
+
+        List<Integer> row = new ArrayList<>();
+
         for(int i = 1; i < numRows; i++) {
-            List<Integer> row = new ArrayList<>();
-            for(int j = 0; j < i + 1; j++){
+            for(int j = 0; j < i + 1; j++) {
                 if(j == 0 || j == i){
                     row.add(1);
                 }
@@ -19,19 +20,10 @@ class Solution {
                     row.add(val);
                 }
             }
-            pasTri.add(row);
+            pasTri.add(new ArrayList<>(row));
+            row.removeAll(row);
         }
         
         return pasTri;
     }
 }
-
-
-/*
-1
-1 1
-1 2 1 
-1 3 3 1
-
-
-*/
