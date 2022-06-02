@@ -1,5 +1,9 @@
 # Complete Java + DSA Bootcamp Syllabus
 
+Striver SDE sheet: 
+[Excel sheet link](https://docs.google.com/spreadsheets/d/1C-f33OSQ1G1e035iPYXH93umxYkgp34aoMKac_7bTFw/edit?usp=sharing)
+<br>
+
 ## Lectures
 - [Complete Git & GitHub Course](https://youtu.be/apGV9Kg7ics)
 - [Introduction to Programming](https://youtu.be/wn49bJOYAZM)
