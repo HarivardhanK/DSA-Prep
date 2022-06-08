@@ -1,35 +1,47 @@
 class Solution {
     public List<Integer> majorityElement(int[] nums) {
         int n = nums.length;
-        Map<Integer, Integer> map = new HashMap<>();
-        for(int num: nums) {
-            map.put(num, map.getOrDefault(num, 0) + 1);
-        }
+        //nums1 = first element and nums2 = second majority
+        int nums1 = -1, nums2 = -1;
+        //c1 = count of first and c2 = count of second majority element
+        int c1 = 0, c2 = 0;
         
-        List<Integer> ans = new ArrayList<>();
-        
-        for(Map.Entry<Integer, Integer> en: map.entrySet()) {
-            if(en.getValue() > n/3) {
-                ans.add(en.getKey());
+        for(int ele: nums) {
+            if(ele == nums1) {
+                c1++;
+            }
+            else if(ele == nums2) {
+                c2++;
+            }
+            else if(c1 == 0) {
+                nums1 = ele;
+                c1 = 1;
+            }
+            else if(c2 == 0) {
+                nums2 = ele;
+                c2 = 1;
+            }
+            else{
+                c1--;
+                c2--;
             }
         }
+        c1 = c2 = 0;
+        for( int ele: nums) {
+            if(nums1 == ele){
+                c1++;
+            }
+            else if(nums2 == ele) {
+                c2++;
+            }
+        }
+        List<Integer> ans = new ArrayList<>();
+        if(c1 > n/3) {
+            ans.add(nums1);
+        }
+        if(c2 > n/3) {
+            ans.add(nums2);
+        }
         return ans;
-        
-        // Arrays.sort(nums);
-        // int count = 0;
-        // List<Integer> ans = new ArrayList<>();
-        // for(int i = 0; i < nums.length; i++) {
-        //     if(i > 0 && nums[i] == nums[i-1]) {
-        //         count++;
-        //     }
-        //     else {
-        //         if(count > nums.length/3) 
-        //             ans.add(nums[i]);
-        //         count = 1;
-        //     }            
-        // }
-        // if((ans.size() == 0 || ans.get(ans.size() - 1) != nums[nums.length - 1]) && count > nums.length/3) 
-        //     ans.add(nums[nums.length - 1]);
-        // return ans;
-    }
+   }
 }
