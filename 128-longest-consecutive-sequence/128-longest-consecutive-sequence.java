@@ -6,7 +6,7 @@ class Solution {
             set.add(ele);
         
         int longestcon = 0;
-        for(int ele: nums) {
+        for(int ele: set) {
             if(!set.contains(ele - 1)) {
                 int count = 1;
                 while(set.contains(ele + 1)){
