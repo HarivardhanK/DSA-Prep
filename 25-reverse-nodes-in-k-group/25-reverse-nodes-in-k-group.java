@@ -29,8 +29,8 @@ class Solution {
             while(last != null && kk-- > 0) {
                 last  = last.next;
             }
+            curr = head;
             if(kk <= 0){
-                curr = head;
                 prev = reverse(null, curr, last);
             }
             else {
@@ -38,12 +38,13 @@ class Solution {
             }
             if(newhead == null) {
                 newhead = prev;
-                tail = prev;
+                // tail = prev;
             }
             else{
-                while(tail.next != null) tail = tail.next;
+                // while(tail.next != null) tail = tail.next;
                 tail.next = prev;
             }
+            tail = head;
             head = last;
         }
         return newhead;
