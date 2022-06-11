@@ -1,26 +1,25 @@
 class Solution {
     public int minOperations(int[] nums, int x) {
-        int sum = 0;
-        for(int ele:nums) sum+=ele;
-        if(sum<x) return -1;
-        int rightsum=0, leftsum=0;
-        int n=nums.length,res = (int)1e9;
-        Map<Integer, Integer> map = new HashMap<>();
+        int tsum = -x;//total sum
+        for(int ele: nums)
+            tsum += ele;
+          // since all elements are positive, we have to take all of them
+        if(tsum == 0) return nums.length;
         
-        for(int i=n-1;i>=0;i--){
-            if(nums[i]>x  || rightsum>=x) break;
-            rightsum+=nums[i];
-            map.put(rightsum,n-i);
-            if(rightsum==x) res = Math.min(res,n-i);
+        int res = -1, sum = 0;
+        Map<Integer, Integer> map = new HashMap<>();
+        map.put(0, -1);
+        //find the maximum subarray of sum = tsum - x
+        //so that we can get the min num of operations
+        for(int i = 0; i < nums.length; i++) {
+            sum += nums[i];
+            if(map.containsKey(sum - tsum)){
+                res = Math.max(res, i - map.get(sum - tsum));
+            }
+            // no need to check containsKey since sum is unique
+            map.put(sum, i);
         }
-        for(int i=0;i<n;i++){
-            if(nums[i]>x || leftsum>=x) break;
-            leftsum+=nums[i];
-            if(map.containsKey(x-leftsum))
-                res = Math.min(res,i+1+map.get(x-leftsum));
-            if(leftsum==x)
-                res = Math.min(res, i+1);
-        }
-        return res==(int)1e9?-1:res;
+        
+        return (res == -1)?-1 :nums.length - res;
     }
 }
