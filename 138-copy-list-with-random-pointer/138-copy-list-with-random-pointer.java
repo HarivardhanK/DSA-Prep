@@ -16,43 +16,40 @@ class Node {
 
 class Solution {
     public Node copyRandomList(Node head) {
-        Node l=head;
-        Node ans=null;
-        Node tail=null;
-        while(l!=null){
-            Node node=new Node(l.val);
-            if(ans==null){
-                ans=node;
-                tail=node;
-            }
-            else{
-                tail.next=node;
-                tail=tail.next;
-            }
-            l=l.next;
+        Node curr = head, next = head;
+        //step 1: iterate through the list and create a deep copy nodes next its original nodes
+        while(curr != null) {
+            next = curr.next;
+            Node node = new Node(curr.val);
+            curr.next = node;
+            node.next = next;
+            curr = next;
         }
-        l=head;
-        tail=ans;
-        while(tail!=null&& l!=null){
-            if(l.random==null){
-                tail.random=null;
-            }
-            else{
-                Node h=head;
-                int index=0;
-                while(h!=null && h!=l.random){
-                    h=h.next;
-                    index++;
-                }
-                h=ans;
-                while(index-->0){
-                    h=h.next;
-                }
-                tail.random=h;
-            }
-            tail=tail.next;
-            l=l.next;
+        
+        //step 2: now assign random pointer to the deep copies
+        curr = head;
+        while(curr != null) {
+            if(curr.random != null)
+                curr.next.random = curr.random.next;
+            curr = curr.next.next;
         }
-        return ans;
+        
+        //step 3: create a dummy node and seperate the deep copy and original copy
+        Node dummy = new Node(-1);
+        Node deepcopy = dummy;
+        curr = head; next = head;
+        
+        while(curr != null) {
+            next = curr.next.next;
+            
+            //extract the copy
+            deepcopy.next = curr.next;
+            deepcopy = deepcopy.next;
+            
+            //restore the original list
+            curr.next = next;
+            curr = next;
+        }
+        return dummy.next;
     }
 }
