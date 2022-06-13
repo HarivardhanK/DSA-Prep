@@ -54,7 +54,7 @@ class Solution
         //-1 indicates that the no job is taken in that time slice
         Arrays.fill(jobseq, -1);
         
-        //sorting accoriding to the profits as we need maximize profits
+        //sorting according to the profits as we need maximize profits
         Arrays.sort(arr, (a,b)-> b.profit - a.profit);
         
         int maxProfit = 0, count = 0;
@@ -66,7 +66,7 @@ class Solution
                 count++;
             }
             else{
-                for(int i = ind; i>0;i--){
+                for(int i = ind -1; i>0;i--){
                     if(jobseq[i]==-1){
                         jobseq[i] = j.profit;
                         maxProfit += jobseq[i];
