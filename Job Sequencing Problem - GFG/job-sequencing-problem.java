@@ -50,9 +50,10 @@ class Solution
         for(Job j: arr){
             max = Math.max(max, j.deadline);
         }
-        int jobseq[] = new int[max+1];
+        //take an array for 
+        boolean jobseq[] = new boolean[max+1];
         //-1 indicates that the no job is taken in that time slice
-        Arrays.fill(jobseq, -1);
+        // Arrays.fill(jobseq, -1);
         
         //sorting according to the profits as we need maximize profits
         Arrays.sort(arr, (a,b)-> b.profit - a.profit);
@@ -60,16 +61,16 @@ class Solution
         int maxProfit = 0, count = 0;
         for(Job j:arr){
             int ind = j.deadline;
-            if(jobseq[ind]==-1){
-                jobseq[ind] = j.profit;
-                maxProfit += jobseq[ind];
+            if(!jobseq[ind]){
+                jobseq[ind] = true;
+                maxProfit += j.profit;
                 count++;
             }
             else{
                 for(int i = ind -1; i>0;i--){
-                    if(jobseq[i]==-1){
-                        jobseq[i] = j.profit;
-                        maxProfit += jobseq[i];
+                    if(!jobseq[i]){
+                        jobseq[i] = true;
+                        maxProfit += j.profit;
                         count++;
                         break;
                     }
