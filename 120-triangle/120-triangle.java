@@ -1,17 +1,26 @@
 class Solution {
-    public int minimumTotal(List<List<Integer>> triangle) {
-        // https://takeuforward.org/data-structure/minimum-path-sum-in-triangular-grid-dp-11/
-        int n=triangle.size();
-        int prev[] = new int[n];
-        int curr[] = new int[n];
-        //filling the last into the prev array
-        for(int j=0;j<n;j++) prev[j] = triangle.get(n-1).get(j);
-        for(int r=n-2;r>=0;r--){
-            for(int c=0;c<=r;c++){
-                curr[c] = triangle.get(r).get(c) + Math.min(prev[c],prev[c+1]);
-            }
-            prev=curr;
+    private int solve(List<List<Integer>> triangle, int row, int col, int dp[][]) {
+        if(row > triangle.size() - 1 || col > triangle.get(row).size() - 1) 
+            return Integer.MAX_VALUE;  
+        if(row == triangle.size() - 1){
+            return triangle.get(row).get(col);
         }
-        return prev[0];
+        if(dp[row][col] != Integer.MAX_VALUE) return dp[row][col];
+        
+        int min = Math.min(solve(triangle, row + 1, col, dp), solve(triangle, row + 1, col + 1, dp));
+        return dp[row][col] = triangle.get(row).get(col) + min;
+    }
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int[][] dp = new int[triangle.size()][];
+        
+        for(int i = 0; i < triangle.size(); i++)
+            dp[i] = new int[triangle.get(i).size()];
+        
+        for(int[] row: dp)
+            Arrays.fill(row, Integer.MAX_VALUE);
+        
+        int ans =  solve(triangle, 0, 0, dp);
+        return ans;
     }
 }
+
