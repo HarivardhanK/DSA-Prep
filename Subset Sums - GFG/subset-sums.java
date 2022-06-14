@@ -32,22 +32,18 @@ class GFG
 
 //User function Template for Java//User function Template for Java
 class Solution{
-    ArrayList<Integer> solve(ArrayList<Integer> arr, int i, int sum) {
-        if(i == arr.size()){
-            ArrayList<Integer> ans = new ArrayList<>();
-            ans.add(sum);
-            return ans;
-        }
-            
-        ArrayList<Integer> nonpick = solve(arr, i + 1, sum);
-        ArrayList<Integer> pick = solve(arr, i + 1, sum + arr.get(i));
-        pick.addAll(nonpick);
-        return pick;
-        
-    }
     ArrayList<Integer> subsetSums(ArrayList<Integer> arr, int N){
-        ArrayList<Integer> ans = solve(arr, 0, 0);
-        Collections.sort(ans);
+        // code here
+        ArrayList<Integer> ans=new ArrayList<>();
+        subsetsSumHelper(arr, 0, 0, ans);
         return ans;
+    }
+    void subsetsSumHelper(ArrayList<Integer> up, int ind, int sum, List<Integer> p){
+        if(ind==up.size()){
+            p.add(sum);
+            return;
+        }
+        subsetsSumHelper(up,ind+1,sum,p);
+        subsetsSumHelper(up,ind+1,sum+up.get(ind),p);
     }
 }
