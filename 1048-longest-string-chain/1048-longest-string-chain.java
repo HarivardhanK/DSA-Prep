@@ -1,35 +1,18 @@
 class Solution {
-    private boolean checkPos(String s, String t){
-        if(s.length() != t.length()+1) return false;
-        int sind=0,tind=0;
-        while(sind < s.length()){
-            if(tind<t.length() && t.charAt(tind)==s.charAt(sind)){
-                tind++;
-                sind++;
-            }
-            else{
-                sind++;
-            }
-        }
-        if(tind==t.length() && sind==s.length()) return true;
-        return false;
-    }
     public int longestStrChain(String[] words) {
-        int n = words.length;
-        Arrays.sort(words, (a,b)->a.length() - b.length());
+        int res = 1;
+        Arrays.sort(words, (a, b) -> a.length() - b.length());
+        HashMap<String, Integer> map = new HashMap<>();
         
-        int dp[] = new int[n];
-        Arrays.fill(dp,1);
-        int max=1;
-        
-        for(int i=0;i<n;i++){
-            for(int j=0;j<i;j++){
-                if(checkPos(words[i],words[j]) && dp[i]<dp[j]+1){
-                    dp[i]=dp[j]+1;
-                }
+        for(String w: words) {
+            map.put(w, 1);
+            for(int i = 0; i < w.length(); i++) {
+                String s = w.substring(0,i) + w.substring(i+1, w.length());
+                if(map.containsKey(s) && map.get(s) + 1 > map.get(w)) 
+                    map.put(w, map.get(s) + 1);
             }
-            max=Math.max(dp[i],max);
+            res = Math.max(res, map.get(w));
         }
-        return max;
+        return res;
     }
 }
