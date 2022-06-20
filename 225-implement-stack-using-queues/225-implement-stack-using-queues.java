@@ -1,13 +1,14 @@
 class MyStack {
     Queue<Integer> q;
     public MyStack() {
-        q=new LinkedList<>();
+        q = new LinkedList<>();
     }
     
     public void push(int x) {
         q.offer(x);
-        for(int i=0;i<q.size()-1;i++)
+        for(int i = 0; i < q.size() - 1; i++) {
             q.offer(q.poll());
+        }
     }
     
     public int pop() {
@@ -19,9 +20,13 @@ class MyStack {
     }
     
     public boolean empty() {
-        return !(q.size()>0);
+        return q.size() == 0;
     }
 }
+
+/*
+    [1,2,2,3,4] [1,2,2,3,4]
+*/
 
 /**
  * Your MyStack object will be instantiated and called as such:
