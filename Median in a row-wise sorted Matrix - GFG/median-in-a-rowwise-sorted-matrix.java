@@ -50,7 +50,6 @@ class Solution {
         //high is the maximum possible value - taken from the constraints of the prob
         int low = 1, high = 2000;    
         int mult = r * c;
-        int ElesOnLeft = (mult %2 == 0)?mult/2:mult/2 + 1;
         
         while(low <= high) {
             int mid = low + (high - low) / 2;
@@ -58,7 +57,7 @@ class Solution {
             for(int i = 0; i < r; i++)
                 count += countNumberLessThanEqualToMid(matrix[i], mid);
             
-            if(count < ElesOnLeft) 
+            if(count <= mult/2) 
                 low = mid + 1;
             else 
                 high = mid - 1;
