@@ -19,30 +19,30 @@ class Node {
 */
 
 class Solution {
-    public Node cloneGraph(Node node) {
-        if(node == null) return node;
-        Map<Integer,Node> visited = new HashMap<>();
-        Queue<Node> q = new LinkedList<>();
-        q.offer(node);
-        Node newNode = new Node(node.val);
-        visited.put(node.val,newNode);
-        
-        while(!q.isEmpty()){
-            Node n = q.poll();
-            Node newn = visited.get(n.val);
-            newn.neighbors = new ArrayList<>();
-            for(Node it: n.neighbors){
-                if(visited.containsKey(it.val)){
-                    newn.neighbors.add(visited.get(it.val));
-                }
-                else{
-                    Node newnode = new Node(it.val);
-                    visited.put(it.val,newnode);
-                    q.offer(it);
-                    newn.neighbors.add(newnode);
-                }
-            }
+    private Node dfs(Node n, Map<Integer, Node> vis ) {
+        if(vis.containsKey(n.val)) {
+            return vis.get(n.val);
         }
-        return newNode;
+        else {
+            Node node = new Node(n.val);
+            vis.put(node.val, node);
+            for(Node nde: n.neighbors) {
+                node.neighbors.add(dfs(nde, vis));
+            }
+            return node;
+        }
+    }
+    public Node cloneGraph(Node node) {
+        if(node == null) return null;
+        
+        Map<Integer, Node> visited = new HashMap<>();
+        Node newnode = new Node(node.val);
+        visited.put(node.val, newnode);
+        
+        for(Node n: node.neighbors) {
+            newnode.neighbors.add(dfs( n, visited));
+        }
+            
+        return newnode;
     }
 }
