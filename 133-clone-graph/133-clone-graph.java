@@ -19,30 +19,27 @@ class Node {
 */
 
 class Solution {
-    private Node dfs(Node n, Map<Integer, Node> vis ) {
-        if(vis.containsKey(n.val)) {
-            return vis.get(n.val);
-        }
-        else {
-            Node node = new Node(n.val);
-            vis.put(node.val, node);
-            for(Node nde: n.neighbors) {
-                node.neighbors.add(dfs(nde, vis));
+    private Node dfs(Node n,Node copy, Map<Integer, Node> vis ) {
+        vis.put(n.val, copy);
+        for(Node node: n.neighbors) {
+            if(vis.containsKey(node.val)) {
+                copy.neighbors.add(vis.get(node.val));
             }
-            return node;
+            else {
+                Node newnode = new Node(node.val);
+                copy.neighbors.add(dfs(node, newnode, vis));
+            }
         }
+        return copy;
+        
     }
     public Node cloneGraph(Node node) {
         if(node == null) return null;
         
         Map<Integer, Node> visited = new HashMap<>();
         Node newnode = new Node(node.val);
-        visited.put(node.val, newnode);
         
-        for(Node n: node.neighbors) {
-            newnode.neighbors.add(dfs( n, visited));
-        }
-            
+        dfs(node, newnode, visited);
         return newnode;
     }
 }
