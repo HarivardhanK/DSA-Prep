@@ -18,8 +18,7 @@ class Solution {
         for(int box[]: boxTypes) {
             int taken = (truckSize < box[0])?truckSize:box[0];
             maxUnits += taken * box[1];
-            truckSize -= box[0];
-            if(truckSize <= 0) break;
+            truckSize -= taken;
         }
         
         return maxUnits;
