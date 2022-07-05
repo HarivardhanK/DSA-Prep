@@ -1,21 +1,29 @@
 class Solution {
     public int longestConsecutive(int[] nums) {
+        // brute force is to sort the entire array and check for the consecutive elements 
+        // which has the time complexity of O(NlogN) and O(1)
+        
+        // optimised solution: 
+        // use a hash for searching the next consecutive element in the array
+        // we need a set for storing all the elements of an array
+        // we don't care about the duplicates 
         
         Set<Integer> set = new HashSet<>();
-        for(int ele: nums) 
+        for(int ele: nums) {
             set.add(ele);
+        }
+        int max = 0;
         
-        int longestcon = 0;
-        for(int ele: set) {
+        for(int ele: nums) {
             if(!set.contains(ele - 1)) {
-                int count = 1;
-                while(set.contains(ele + 1)){
-                    count++;
+                int curr = 1;
+                while(set.contains(ele + 1)) {
+                    curr++;
                     ele++;
                 }
-                longestcon = Math.max(longestcon, count);
+                max = Math.max(curr, max);
             }
         }
-        return longestcon;
+        return max;
     }
 }
