@@ -12,11 +12,11 @@ class Solution {
         for(int ele: nums) {
             set.add(ele);
         }
-        int max = 0;
+        int max = 0, curr;
         
-        for(int ele: nums) {
+        for(int ele: set) {
             if(!set.contains(ele - 1)) {
-                int curr = 1;
+                curr = 1;
                 while(set.contains(ele + 1)) {
                     curr++;
                     ele++;
