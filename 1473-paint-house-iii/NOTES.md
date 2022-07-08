@@ -1,0 +1,1 @@
+[Solution](https://github.com/Sunchit/Coding-Decoded/blob/master/July2022/Java/PaintHouseIII.java)
