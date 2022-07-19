@@ -1,29 +1,26 @@
 class Solution {
     public List<List<Integer>> generate(int numRows) {
-        if(numRows == 0) 
-            return new ArrayList<>();
-        
-        List<List<Integer>> pasTri = new ArrayList<>();
-        //adding first row
-        pasTri.add(new ArrayList<>());
-        pasTri.get(0).add(1);
-
-        List<Integer> row = new ArrayList<>();
-
+        List<List<Integer>> ans = new ArrayList<>();
+        List<Integer> level = new ArrayList<>();
+        level.add(1);
+        ans.add(level);
+        int size = 1;
         for(int i = 1; i < numRows; i++) {
-            for(int j = 0; j < i + 1; j++) {
-                if(j == 0 || j == i){
-                    row.add(1);
-                }
-                else{
-                    int val = pasTri.get(i-1).get(j-1) + pasTri.get(i-1).get(j);
-                    row.add(val);
-                }
+            size += 1;
+            level = new ArrayList<>();
+            level.add(1);
+            for(int ind = 1; ind < size -1; ind++) {
+                level.add(ans.get(ans.size() - 1).get(ind - 1) + ans.get(ans.size() - 1).get(ind));
             }
-            pasTri.add(new ArrayList<>(row));
-            row.removeAll(row);
+            level.add(1);
+            ans.add(level);
         }
-        
-        return pasTri;
+        return ans;
     }
 }
+
+
+//1
+//1 1
+//1 2 1
+//1 3
