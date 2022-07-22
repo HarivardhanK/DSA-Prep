@@ -10,23 +10,45 @@
  */
 class Solution {
     public ListNode partition(ListNode head, int x) {
-        ListNode beforehead = new ListNode(0);
-        ListNode before = beforehead;
-        ListNode afterhead = new ListNode(0);
-        ListNode after = afterhead;
-        while(head!=null){
-            if(head.val<x){
-                before.next=head;
-                before=head;
+        ArrayList<Integer> arr = new ArrayList<>();
+        ListNode temp = head;
+        while(temp != null) {
+            if(temp.val < x)
+                arr.add(temp.val);
+            temp = temp.next;
+        }
+        
+        ListNode root = null;
+        temp = null;
+        for(int ele: arr) {
+            ListNode newnode = new ListNode(ele);
+            if(root == null) {
+                root = newnode;
             }
             else{
-                after.next=head;
-                after=head;
+                temp.next = newnode;
             }
-            head=head.next;
+            temp = newnode;
         }
-        after.next=null;
-        before.next=afterhead.next;
-        return beforehead.next;
+        
+        arr.removeAll(arr);
+        
+        while(head != null) {
+            if(head.val >= x) arr.add(head.val);
+            head = head.next;
+        }
+        
+        for(int ele: arr) {
+            ListNode newnode = new ListNode(ele);
+            if(root == null) {
+                root = newnode;
+                temp = newnode;
+            }
+            else{
+                temp.next = newnode;
+                temp = newnode;
+            }
+        }
+        return root;
     }
 }
