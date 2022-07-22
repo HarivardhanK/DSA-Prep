@@ -1,3 +1,8 @@
+### Brute force way: use an arraylist then we can create a ll based on the arraylist
+TC: O(n)
+SC: O(n)
+​
+### Best Solution:
 ```
 class Solution {
 public ListNode partition(ListNode head, int x) {
@@ -37,13 +42,3 @@ le=temp;
 }
 else{
 le.next=temp;
-le=temp;
-}
-temp=temp.next;
-le.next=null;
-}
-else{
-if(gehead==null){
-gehead=temp;
-ge=temp;
-}
