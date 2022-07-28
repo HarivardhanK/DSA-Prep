@@ -1,21 +1,19 @@
 class Solution {
     public boolean isAnagram(String s, String t) {
-        // sort the two string and compare them 
+        if(s.length() != t.length()) return false;
         
-        //use hashmap to store the character occurences 
-        Map<Character, Integer> map = new HashMap<>();
-        for(char ch: s.toCharArray()) 
-            map.put(ch, map.getOrDefault(ch, 0) + 1);
+        int[] sarr = new int[26];
+        int[] tarr = new int[26];
         
-        for(char ch: t.toCharArray()) {
-            if(!map.containsKey(ch)) return false;
-            
-            map.put(ch, map.getOrDefault(ch, 0) - 1);
-            if(map.get(ch) == 0)
-                map.remove(ch);
+        for(int i = 0; i < s.length(); i++) {
+            sarr[s.charAt(i) - 'a']++;
+            tarr[t.charAt(i) - 'a']++;
         }
         
-        if(map.size() == 0) return true;
-        return false;
+        for(int i = 0; i < 26; i++) 
+            if(sarr[i] != tarr[i]) 
+                return false;
+        
+        return true;
     }
 }
