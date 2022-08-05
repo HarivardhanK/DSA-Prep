@@ -33,11 +33,11 @@ class Solution {
     public int combinationSum4(int[] nums, int target) {
 //         return solve(nums, target);
         
-        int[] dp = new int[target+1];
-        Arrays.fill(dp, -1);
+//         int[] dp = new int[target+1];
+//         Arrays.fill(dp, -1);
         
-        return solveMemo(nums, target, dp);
+//         return solveMemo(nums, target, dp);
         
-        // return solveTabu(nums, target);
+        return solveTabu(nums, target);
     }
 }
