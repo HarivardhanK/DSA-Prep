@@ -1,32 +1,28 @@
-public static void lengthOfLIS(int[] nums) {
+### Memoization:
+​
+```
+class Solution {
+private int lis(int nums[],int ind,int prevind,int dp[][]){
+if(ind==nums.length){
+return 0;
+}
+if(dp[ind][prevind+1]!=-1) return dp[ind][prevind+1];
+int len = lis(nums,ind+1,prevind,dp);
+if(prevind==-1 || nums[prevind]<nums[ind]){
+return dp[ind][prevind+1]=Math.max(1+lis(nums,ind+1,ind,dp),len);
+}
+else{
+return dp[ind][prevind+1]=len;
+}
+}
+public int lengthOfLIS(int[] nums) {
 int n=nums.length;
-int lis[] = new int[n];
-//base case filling 0's in nth row -- by default the values are 0
-//nested loops
-int max=1,maxind=0;
-Arrays.fill(lis,1);
-for(int ind=0;ind<n;ind++){
-for(int prevind=0;prevind<ind;prevind++){
-if(nums[ind]>nums[prevind]){
-if(lis[ind]<1+lis[prevind])
-lis[ind]=1+lis[prevind];
-}
-}
-if(max<lis[ind]){
-max=lis[ind];
-maxind=ind;
-}
-}
-List<Integer> ans = new ArrayList<>();
-while(maxind>=0){
-ans.add(nums[maxind]);
-int ind=maxind;
-while(ind>=0 && lis[maxind]-1!=lis[ind]) ind--;
-maxind=ind;
-}
-Collections.reverse(ans);
-System.out.println(ans);
-return;
+int dp[][] = new int[n][n];
+for(int row[]:dp) Arrays.fill(row,-1);
+return lis(nums,0,-1,dp);
 }
 }
 ```
+​
+### Tabulation:
+​
