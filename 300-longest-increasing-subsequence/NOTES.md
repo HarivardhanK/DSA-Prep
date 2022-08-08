@@ -1,52 +1,39 @@
-for(int row[]:dp) Arrays.fill(row,-1);
-return lis(nums,0,-1,dp);
+while(ind>=0 && lis[maxind]-1!=lis[ind]) ind--;
+maxind=ind;
+}
+Collections.reverse(ans);
+System.out.println(ans);
+return;
 }
 }
 ```
-​
-### Tabulation:
-​
-```
-class Solution {
-public int lengthOfLIS(int[] nums) {
-int n=nums.length;
-int dp[][] = new int[n+1][n+1];
-//base case filling 0's in nth row -- by default the values are 0
-//nested loops
-for(int ind=n-1;ind>=0;ind--){
-for(int prevind=ind-1;prevind>=-1;prevind--){
-int len = dp[ind+1][prevind+1];
-if(prevind==-1 || nums[prevind] < nums[ind]){
-//dp[ind+1][ind] -> dp[ind+1][ind+1] don't know why
-len=Math.max(1+dp[ind+1][ind+1],len);
-}
-dp[ind][prevind+1]=len;
-}
-}
-return dp[0][-1+1];
-}
-}
-```
-​
-### Space optimised:
+### Using binary Search:
+here we have use same arr and overrided the values but we can use multiple lists when we pick an element which is less than the previous (last ele in arr) then create a new list again
 ```
 class Solution {
+private int binsearch(List<Integer> arr, int s, int e,int target){
+while(s<e){
+int mid=s+(e-s)/2;
+if(arr.get(mid)==target) return mid;
+else if(arr.get(mid)<target) s++;
+else e--;
+}
+return s;
+}
 public int lengthOfLIS(int[] nums) {
 int n=nums.length;
-int next[] = new int[n+1];
-//base case filling 0's in nth row -- by default the values are 0
-//nested loops
-for(int ind=n-1;ind>=0;ind--){
-int curr[] = new int[n+1];
-for(int prevind=ind-1;prevind>=-1;prevind--){
-int len = next[prevind+1];
-if(prevind==-1 || nums[prevind] < nums[ind]){
-//dp[ind+1][ind] -> dp[ind+1][ind+1] don't know why
-len=Math.max(1+next[ind+1],len);
+ArrayList<Integer> arr = new ArrayList<>();
+arr.add(nums[0]);
+for(int i=1;i<n;i++){
+if(nums[i]>arr.get(arr.size()-1)){
+arr.add(nums[i]);
 }
-curr[prevind+1]=len;
+else{
+int ind = binsearch(arr,0,arr.size()-1,nums[i]);
+arr.set(ind,nums[i]);
 }
-next=curr;
 }
-return next[-1+1];
+return arr.size();
 }
+}
+```
