@@ -8,12 +8,6 @@ class Solution {
             case "C": return 100;
             case "D": return 500;
             case "M": return 1000;
-            // case "IV": return 4;
-            // case "IX": return 9;
-            // case "XL": return 40;
-            // case "XC": return 90;
-            // case "CD": return 400;
-            // case "CM": return 900;
             default: return 0;
         }
     }
