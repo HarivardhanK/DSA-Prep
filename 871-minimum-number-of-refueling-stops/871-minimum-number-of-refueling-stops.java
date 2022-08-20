@@ -1,20 +1,19 @@
 class Solution {
     public int minRefuelStops(int target, int startFuel, int[][] stations) {
         int n = stations.length;
-        long[] dp = new long[n + 1];
-        dp[0] = startFuel;
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b)->b[1] - a[1]);
         
-        for(int i = 0; i < n; i++) {
-            for(int refil = i; refil >= 0 && dp[refil] >= stations[i][0]; refil--) {
-                dp[refil + 1] = Math.max(dp[refil + 1], dp[refil] + stations[i][1]);
-            }
+        int distance = startFuel, no_refills = 0, i = 0;
+        while(distance < target) {
+            while(i < n && stations[i][0] <= distance) 
+                pq.offer(stations[i++]);
+            
+            if(pq.size() == 0) return -1;
+            
+            distance += pq.poll()[1];
+            no_refills++;
         }
-        
-        for(int i = 0; i <= n; i++) {
-            if(target <= dp[i]) return i;
-        }
-        
-        return -1;
+        return no_refills;
     }
 }
 
