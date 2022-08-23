@@ -9,34 +9,38 @@
  * }
  */
 class Solution {
-    private ListNode middleNode(ListNode head) {
-        ListNode fast = head, slow = head;
+    private ListNode findMid(ListNode head) {
+        ListNode slow = head, fast = head;
+        ListNode prev = null;
         while(fast != null && fast.next != null) {
-            fast = fast.next.next; 
+            prev = slow;
             slow = slow.next;
+            fast = fast.next.next;
         }
-        return slow;
+        return prev;
     }
     private ListNode reverse(ListNode head) {
-        ListNode prev  = null, curr = head, next = (curr == null)?null:curr.next;
-        while(curr != null ) {
+        ListNode prev = null, curr = head, next = null;
+        if(curr != null) next = curr.next;
+        while(curr != null) {
             curr.next = prev;
-            prev =curr;
+            prev = curr;
             curr = next;
-            next = (next == null)?null:next.next;
+            if(next != null) next = next.next;
         }
         return prev;
     }
     public boolean isPalindrome(ListNode head) {
-        //reverse the half of the linked list
-        ListNode mid = middleNode(head);
-        ListNode tail = reverse(mid);
-        //check for pallindrome or not
-        while(tail != null && head != null) {
-            if(tail.val != head.val) 
-                return false;
-            tail = tail.next;
+        if(head.next == null) return true;
+        
+        ListNode mid = findMid(head);
+        ListNode revList = reverse(mid.next);
+        mid.next = null;
+        
+        while(head != null && revList != null) {
+            if(head.val != revList.val) return false;
             head = head.next;
+            revList = revList.next;
         }
         return true;
     }
