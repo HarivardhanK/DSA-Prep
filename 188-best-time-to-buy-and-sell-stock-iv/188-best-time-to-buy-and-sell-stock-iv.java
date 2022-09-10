@@ -1,21 +1,25 @@
 class Solution {
-    public int maxProfit(int k, int[] prices) {
+    private int solve(int[] prices, int k,int i, int noOfTrans, int[][] dp) {
+        if(k == noOfTrans/2 || i == prices.length) return 0;
         
-        int n=prices.length;
-        int ahead[] = new int[2*k+1];
+        if(dp[i][noOfTrans] != -1) return dp[i][noOfTrans];
         
-        for(int i=n-1;i>=0;i--){
-            int curr[] = new int[2*k+1];
-            for(int j=2*k-1;j>=0;j--){
-                if(j%2==0){
-                    curr[j]=Math.max(-prices[i]+ahead[j+1],ahead[j]);
-                }
-                else{
-                    curr[j]=Math.max(prices[i]+ahead[j+1],ahead[j]);
-                }
-            }
-            ahead = curr;
+        if(noOfTrans%2 == 0) {
+            return dp[i][noOfTrans] = Math.max(solve(prices, k, i+1, noOfTrans+1, dp)-prices[i],
+                           solve(prices, k, i+1, noOfTrans, dp));
         }
-        return ahead[0];
+        else {
+            return dp[i][noOfTrans] = Math.max(prices[i]+solve(prices, k, i+1, noOfTrans+1, dp),
+                           solve(prices, k, i+1, noOfTrans, dp));
+        }
+        
+    }
+    public int maxProfit(int k, int[] prices) {
+        int[][] dp = new int[prices.length][2*k];
+        for(int[] row: dp) {
+            Arrays.fill(row, -1);
+        }
+        
+        return solve(prices, k, 0, 0, dp);
     }
 }
