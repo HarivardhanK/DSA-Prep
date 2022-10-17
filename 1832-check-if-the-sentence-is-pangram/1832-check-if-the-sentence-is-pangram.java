@@ -1,11 +1,13 @@
 class Solution {
     public boolean checkIfPangram(String sentence) {
-        boolean[] isEveryCharAppearing = new boolean[26];
-        for(char ch: sentence.toCharArray()) 
-            isEveryCharAppearing[ch-'a'] = true;
+        int mask = 0;
         
-        boolean ans = true;
-        for(boolean val: isEveryCharAppearing) ans &= val;
-        return ans;
+        for(char ch: sentence.toCharArray()) {
+            int mappedBit = ch - 'a';
+            int currMask = 1 << mappedBit;
+            
+            mask |= currMask;
+        }
+        return mask == (1<<26)-1;
     }
 }
