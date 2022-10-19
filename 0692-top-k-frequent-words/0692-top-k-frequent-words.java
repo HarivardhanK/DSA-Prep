@@ -13,12 +13,15 @@ class Solution {
             map.put(word, map.getOrDefault(word, 0)+1);
         
         PriorityQueue<Pair> pq = new PriorityQueue<>(
-            (a,b)->(a.freq==b.freq)?a.word.compareTo(b.word):b.freq-a.freq);
+            (a,b)->(a.freq==b.freq)?b.word.compareTo(a.word):a.freq-b.freq);
         for(Map.Entry<String, Integer> en: map.entrySet()) {
             pq.offer(new Pair(en.getKey(), en.getValue()));
+            if(pq.size() > k) pq.poll();
         }
         List<String> ans = new ArrayList<>();
         while(k--> 0) ans.add(pq.poll().word);
+        Collections.reverse(ans);
+        
         return ans;
     }
 }
