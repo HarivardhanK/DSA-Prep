@@ -1,13 +1,19 @@
 class Solution {
     public int[] findErrorNums(int[] nums) {
-        int[] map = new int[nums.length+1];
-        for(int ele: nums) map[ele]++;
-        
-        int missing = map.length, dupli = map.length;
-        for(int i =0 ; i < map.length; i++) {
-            if(map[i] == 0) missing = i;
-            else if(map[i] > 1) dupli = i;
+        int i = 0;
+        while(i < nums.length) {
+            int crt = nums[i];
+            if(nums[crt-1] != nums[i]) {
+                int t = nums[crt-1];
+                nums[crt-1] = nums[i];
+                nums[i] = t;
+            }
+            else i++;
         }
-        return new int[]{dupli, missing};
+        
+        for(i = 0; i < nums.length; i++) {
+            if(nums[i] != i+1) return new int[]{nums[i], i+1};
+        }
+        return new int[]{-1, -1};
     }
 }
