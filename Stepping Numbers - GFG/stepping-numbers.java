@@ -40,8 +40,34 @@ class Solution{
         ans = 0;
         if(n == 0) ans++;
         
-        for(int i = 1; i <= 9; i++) {
-            dfs(i, n, m);
+        // using dfs
+        // for(int i = 1; i <= 9; i++) {
+        //     dfs(i, n, m);
+        // }
+        // return ans;
+        
+        // usiing bfs
+        Queue<Integer> q = new LinkedList<>();
+        for(int i = 1; i <= 9; i++) q.offer(i);
+        
+        while(q.size() > 0) {
+            int size = q.size();
+            while(size-- > 0) {
+                int num = q.poll();
+                if(num >= n && num <= m) ans++;
+                
+                int lastdigit = num%10;
+                if(lastdigit == 9) 
+                        q.offer(num*10+8);
+                else if(lastdigit == 0) 
+                        q.offer(num*10+1);
+                else {
+                    if(num*10+lastdigit+1 <= m)
+                        q.offer(num*10+lastdigit+1);
+                    if(num*10+lastdigit-1 <= m)
+                        q.offer(num*10+lastdigit-1);
+                }
+            }
         }
         return ans;
     }
