@@ -35,7 +35,7 @@ class alphanumeric {
 };
 class Solution {
     alphanumeric[] sortedStrings(int N, String A[]) {
-        Map<String, Integer> map = new HashMap<>();
+        Map<String, Integer> map = new TreeMap<>();
         for(String str: A) {
             map.put(str, map.getOrDefault(str, 0)+1);
         }
@@ -45,7 +45,6 @@ class Solution {
         for(Map.Entry<String, Integer> en: map.entrySet()) {
             ans[idx++] = new alphanumeric(en.getKey(), en.getValue());
         }
-        Arrays.sort(ans, (a,b)-> a.name.compareTo(b.name));
         return ans;
     }
 };
