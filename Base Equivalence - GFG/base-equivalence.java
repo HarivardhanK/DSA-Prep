@@ -29,15 +29,8 @@ class Solution
 {
     String baseEquiv(int n, int m)
     {
-        // StringBuilder sb = new StringBuilder();
         for(int i = 2; i <= 32; i++) {
-            // StringBuilder base = new StringBuilder();
-            int digcnt = 0;
-            int num = n;
-            while(num > 0) {
-                digcnt++;
-                num/=i;
-            }
+            int digcnt = (int)(Math.log(n)/Math.log(i)) + 1;
             if(digcnt == m) return "Yes";
         }
         return "No";
