@@ -24,6 +24,6 @@ class GFG {
 
 class Solution {
     static int noOfOpenDoors(Long N) {
-        return (int)Math.floor(Math.sqrt(N));
+        return (int)Math.sqrt(N);
     }
 };
