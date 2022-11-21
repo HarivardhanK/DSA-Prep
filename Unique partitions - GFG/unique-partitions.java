@@ -31,17 +31,12 @@ class GFG
 class Solution
 {
     private void genPaths(int n, int i, List<Integer> ul, List<Integer> pl, ArrayList<ArrayList<Integer>> ans) {
-        if(i == 0) {
-            ArrayList<Integer> t = new ArrayList<>(pl);
-            for(int num = 0; num < n; num++) t.add(1);
-            ans.add(t);
-            return;
-        }
+
         if(n == 0) {
             ans.add(new ArrayList<>(pl));
             return;
         }
-        if(n < 0) return;
+        if(n < 0 || i < 0) return;
         
         pl.add(ul.get(i));
         genPaths(n-ul.get(i), i, ul, pl, ans);
